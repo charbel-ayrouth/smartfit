@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:smartfit/models/myuser.dart';
 import 'package:smartfit/screens/wrapper.dart';
 import 'package:smartfit/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<myUser?>.value(
+    return StreamProvider<User?>.value(
       value: AuthService().user, // we are listening to the Stream user
       initialData: null,
       catchError: (_, __) {},
