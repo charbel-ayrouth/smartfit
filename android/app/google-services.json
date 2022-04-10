@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "52301694314",
+    "project_id": "smartfit-35c48",
+    "storage_bucket": "smartfit-35c48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52301694314:android:8025a788476146e0359113",
+        "android_client_info": {
+          "package_name": "com.example.smartfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52301694314-t7gss3mnm5g89i94hg1kivpe2blb17ht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWce51Iqk3As4dqJ8LOqvzGS5mTfP7ZUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52301694314-t7gss3mnm5g89i94hg1kivpe2blb17ht.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
