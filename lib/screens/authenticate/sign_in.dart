@@ -2,7 +2,11 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:smartfit/screens/authenticate/register.dart';
 import 'package:smartfit/services/auth.dart';
+import 'package:smartfit/shared/components/account_check.dart';
+import 'package:smartfit/shared/components/rounded_button.dart';
+import 'package:smartfit/shared/components/rounded_input_field.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'package:smartfit/shared/loading.dart';
 
@@ -28,103 +32,104 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.brown[100],
-            appBar: AppBar(
-              backgroundColor: Colors.brown[400],
-              elevation: 0.0,
-              title: Text('Sign in to Brew Crew'),
-              actions: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    widget.toggleView();
-                  },
-                  icon: Icon(Icons.person),
-                  label: Text("Register"),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.brown,
-                  ),
-                ),
-              ],
-            ),
-            body: Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-              child: Form(
-                key: _formkey,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      decoration:
-                          textInputDecoration.copyWith(hintText: "Email"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please Enter an email";
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        setState(() {
-                          email = value;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      decoration:
-                          textInputDecoration.copyWith(hintText: "Password"),
-                      validator: (value) {
-                        if (value!.length < 6) {
-                          return 'Enter a password 6+ char long';
-                        }
-                        return null;
-                      },
-                      obscureText: true,
-                      onChanged: (value) {
-                        setState(() {
-                          password = value;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_formkey.currentState!.validate()) {
-                          setState(() => loading = true);
-                          dynamic result = await _auth
-                              .signInWithEmailAndPassword(email, password);
-                          if (result == null) {
+            // resizeToAvoidBottomInset: false,
+            backgroundColor: Colors.grey[100],
+            body: Form(
+              key: _formkey,
+              child: Container(
+                alignment: Alignment.center,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "SIGN IN",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 40,
+                            color: kPrimaryColor),
+                      ),
+                      SizedBox(height: size.height * 0.007),
+                      Text(
+                        "WELCOME BACK !",
+                        style: TextStyle(fontSize: 10, color: Colors.grey[500]),
+                      ),
+                      SizedBox(height: size.height * 0.004),
+                      AccountCheck(
+                          login: true,
+                          press: () {
+                            widget.toggleView();
+                          }),
+                      SizedBox(height: size.height * 0.10),
+                      RoundedInputField(
+                          hintText: "Enter your E-mail",
+                          obscureText: false,
+                          icon: Icons.person,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please Enter an email";
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
                             setState(() {
-                              error = "Coud not sign in with those credentials";
-                              loading = false;
+                              email = value;
                             });
+                          }),
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      RoundedInputField(
+                          hintText: "Enter your Password",
+                          icon: Icons.lock,
+                          validator: (value) {
+                            if (value!.length < 6) {
+                              return 'Enter a password 6+ char long';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              password = value;
+                            });
+                          },
+                          obscureText: true),
+                      SizedBox(
+                        height: size.height * 0.05,
+                      ),
+                      RoundedButton(
+                        text: "Sign In",
+                        press: () async {
+                          if (_formkey.currentState!.validate()) {
+                            setState(() => loading = true);
+                            dynamic result = await _auth
+                                .signInWithEmailAndPassword(email, password);
+                            if (result == null) {
+                              setState(() {
+                                error =
+                                    "Coud not sign in with those credentials";
+                                loading = false;
+                              });
+                            }
                           }
-                        }
-                      },
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(color: Colors.white),
+                        },
                       ),
-                    ),
-                    SizedBox(
-                      height: 12.0,
-                    ),
-                    Text(
-                      error,
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 14.0,
+                      SizedBox(
+                        height: size.height * 0.02,
                       ),
-                    )
-                  ],
+                      Text(
+                        error,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 14.0,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

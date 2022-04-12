@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:smartfit/screens/wrapper.dart';
 import 'package:smartfit/services/auth.dart';
 import 'package:provider/provider.dart';
+import 'package:smartfit/shared/constants.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,13 @@ class MyApp extends StatelessWidget {
       value: AuthService().user, // we are listening to the Stream user
       initialData: null,
       catchError: (_, __) {},
+
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primaryColor: kPrimaryColor,
+          scaffoldBackgroundColor: Colors.white,
+        ),
         // anything inside Wrapper widget can access the data provided by the StreamProvider
         home: Wrapper(),
       ),
