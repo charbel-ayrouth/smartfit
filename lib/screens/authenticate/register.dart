@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:smartfit/services/auth.dart';
-import 'package:smartfit/shared/components/account_check.dart';
-import 'package:smartfit/shared/components/rounded_button.dart';
-import 'package:smartfit/shared/components/rounded_input_field.dart';
+import 'package:smartfit/screens/authenticate/components/account_check.dart';
+import 'package:smartfit/screens/authenticate/components/rounded_button.dart';
+import 'package:smartfit/screens/authenticate/components/rounded_input_field.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'package:smartfit/shared/loading.dart';
 
@@ -33,129 +33,130 @@ class _RegisterState extends State<Register> {
     return loading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.grey[100],
-            body: Form(
+            body: Container(
+              // width: double.infinity,
+              // height: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Form(
                 key: _formKey,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "SIGN UP",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 40,
-                              color: kPrimaryColor),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 100),
+                      Text(
+                        "SIGN UP",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 42,
+                            color: kPrimaryColor),
+                      ),
+                      SizedBox(height: 7),
+                      Text(
+                        "REGISTER YOURSELF HERE",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFBABABA),
                         ),
-                        SizedBox(height: size.height * 0.007),
-                        Text(
-                          "REGISTER YOURSELF HERE",
-                          style:
-                              TextStyle(fontSize: 10, color: Colors.grey[500]),
-                        ),
-                        SizedBox(height: size.height * 0.10),
-                        RoundedInputField(
-                            hintText: "Enter your E-mail",
-                            obscureText: false,
-                            icon: Icons.person,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Please Enter an email";
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              setState(() {
-                                email = value;
-                              });
-                            }),
-                        SizedBox(
-                          height: size.height * 0.05,
-                        ),
-                        RoundedInputField(
-                          controller: _pass,
-                          hintText: "Enter your Password",
-                          icon: Icons.lock,
+                      ),
+                      SizedBox(height: 47),
+                      RoundedInputField(
+                          hintText: "Enter your E-mail",
+                          obscureText: false,
+                          icon: Icons.person,
                           validator: (value) {
-                            if (value!.length < 6) {
-                              return 'Enter a password 6+ char long';
+                            if (value == null || value.isEmpty) {
+                              return "Please Enter an email";
                             }
                             return null;
                           },
                           onChanged: (value) {
                             setState(() {
-                              password = value;
+                              email = value;
                             });
-                          },
-                          obscureText: true,
+                          }),
+                      SizedBox(height: 30),
+                      RoundedInputField(
+                        controller: _pass,
+                        hintText: "Enter your Password",
+                        icon: Icons.lock,
+                        validator: (value) {
+                          if (value!.length < 6) {
+                            return 'Enter a password 6+ char long';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            password = value;
+                          });
+                        },
+                        obscureText: true,
+                      ),
+                      SizedBox(height: 30),
+                      RoundedInputField(
+                        controller: _confirmPass,
+                        hintText: "Confirm Password",
+                        icon: Icons.lock,
+                        validator: (value) {
+                          if (value!.length < 6) {
+                            return 'Enter a password 6+ char long';
+                          }
+                          if (value != _pass.text) {
+                            return "Not Match";
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            password = value;
+                          });
+                        },
+                        obscureText: true,
+                      ),
+                      Text(
+                        error,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 14.0,
                         ),
-                        SizedBox(
-                          height: size.height * 0.05,
-                        ),
-                        RoundedInputField(
-                          controller: _confirmPass,
-                          hintText: "Confirm Password",
-                          icon: Icons.lock,
-                          validator: (value) {
-                            if (value!.length < 6) {
-                              return 'Enter a password 6+ char long';
-                            }
-                            if (value != _pass.text) {
-                              return "Not Match";
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
+                      ),
+                      SizedBox(height: 10),
+                      RoundedButton(
+                        text: "Sign Up",
+                        press: () async {
+                          if (_formKey.currentState!.validate()) {
                             setState(() {
-                              password = value;
+                              loading = true;
                             });
-                          },
-                          obscureText: true,
-                        ),
-                        SizedBox(
-                          height: size.height * 0.05,
-                        ),
-                        RoundedButton(
-                          text: "Sign Up",
-                          press: () async {
-                            if (_formKey.currentState!.validate()) {
+                            dynamic result = await _auth
+                                .registerWithEmailAndPassword(email, password);
+                            if (result == null) {
                               setState(() {
-                                loading = true;
+                                error = "Please supply a avalid email";
+                                loading = false;
                               });
-                              dynamic result =
-                                  await _auth.registerWithEmailAndPassword(
-                                      email, password);
-                              if (result == null) {
-                                setState(() {
-                                  error = "Please supply a avalid email";
-                                  loading = false;
-                                });
-                              }
                             }
-                          },
-                        ),
-                        SizedBox(height: size.height * 0.004),
-                        AccountCheck(
-                            login: false,
-                            press: () {
-                              widget.toggleView();
-                            }),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
-                        Text(
-                          error,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 14.0,
-                          ),
-                        )
-                      ],
-                    ),
+                          }
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      AccountCheck(
+                          login: false,
+                          press: () {
+                            widget.toggleView();
+                          }),
+                      SizedBox(height: 40),
+                    ],
                   ),
-                )),
+                ),
+              ),
+            ),
           );
   }
 }

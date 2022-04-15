@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
@@ -23,20 +25,46 @@ class RoundedInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      // margin: EdgeInsets.symmetric(vertical: 10),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: size.width * 0.8,
       decoration: BoxDecoration(
-        color: kPrimaryLightColor,
-        borderRadius: BorderRadius.circular(29),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.4),
+            blurRadius: 20,
+            spreadRadius: 0.5,
+            offset: Offset(20, 5),
+          ),
+        ],
       ),
       child: TextFormField(
         obscureText: obscureText,
         decoration: InputDecoration(
-            hintText: hintText,
-            icon: Icon(
-              icon,
-            )),
+          fillColor: Colors.white,
+          filled: true,
+          hintText: hintText,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(
+              color: Colors.grey,
+              width: 1.0,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(
+              color: kPrimaryColor,
+              width: 2.0,
+            ),
+          ),
+          prefixIcon: Icon(
+            icon,
+            color: kInputColor,
+          ),
+          hintStyle: TextStyle(
+            color: kInputColor,
+          ),
+        ),
         validator: validator,
         onChanged: onChanged,
         controller: controller,

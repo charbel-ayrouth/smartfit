@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smartfit/screens/authenticate/register.dart';
 import 'package:smartfit/services/auth.dart';
-import 'package:smartfit/shared/components/account_check.dart';
-import 'package:smartfit/shared/components/rounded_button.dart';
-import 'package:smartfit/shared/components/rounded_input_field.dart';
+import 'package:smartfit/screens/authenticate/components/account_check.dart';
+import 'package:smartfit/screens/authenticate/components/rounded_button.dart';
+import 'package:smartfit/screens/authenticate/components/rounded_input_field.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'package:smartfit/shared/loading.dart';
 
@@ -37,34 +37,38 @@ class _SignInState extends State<SignIn> {
         ? Loading()
         : Scaffold(
             // resizeToAvoidBottomInset: false,
-            backgroundColor: Colors.grey[100],
-            body: Form(
-              key: _formkey,
-              child: Container(
-                alignment: Alignment.center,
+            body: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/background.jpeg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Form(
+                key: _formkey,
                 child: SingleChildScrollView(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      SizedBox(height: 100),
                       Text(
                         "SIGN IN",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40,
-                            color: kPrimaryColor),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 42,
+                          color: kPrimaryColor,
+                        ),
                       ),
-                      SizedBox(height: size.height * 0.007),
+                      SizedBox(height: 7),
                       Text(
                         "WELCOME BACK !",
-                        style: TextStyle(fontSize: 10, color: Colors.grey[500]),
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Color(
+                              0xFFBABABA,
+                            ),
+                            fontWeight: FontWeight.w700),
                       ),
-                      SizedBox(height: size.height * 0.004),
-                      AccountCheck(
-                          login: true,
-                          press: () {
-                            widget.toggleView();
-                          }),
-                      SizedBox(height: size.height * 0.10),
+                      SizedBox(height: 70),
                       RoundedInputField(
                           hintText: "Enter your E-mail",
                           obscureText: false,
@@ -80,9 +84,7 @@ class _SignInState extends State<SignIn> {
                               email = value;
                             });
                           }),
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
+                      SizedBox(height: 55),
                       RoundedInputField(
                           hintText: "Enter your Password",
                           icon: Icons.lock,
@@ -98,9 +100,14 @@ class _SignInState extends State<SignIn> {
                             });
                           },
                           obscureText: true),
-                      SizedBox(
-                        height: size.height * 0.05,
+                      Text(
+                        error,
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 14.0,
+                        ),
                       ),
+                      SizedBox(height: 33),
                       RoundedButton(
                         text: "Sign In",
                         press: () async {
@@ -119,15 +126,14 @@ class _SignInState extends State<SignIn> {
                         },
                       ),
                       SizedBox(
-                        height: size.height * 0.02,
+                        height: 25,
                       ),
-                      Text(
-                        error,
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 14.0,
-                        ),
-                      )
+                      AccountCheck(
+                          login: true,
+                          press: () {
+                            widget.toggleView();
+                          }),
+                      SizedBox(height: 50),
                     ],
                   ),
                 ),

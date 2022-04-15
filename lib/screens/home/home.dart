@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:smartfit/services/auth.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
 
   @override

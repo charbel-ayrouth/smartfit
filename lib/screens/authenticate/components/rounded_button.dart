@@ -35,7 +35,10 @@ class RoundedButton extends StatelessWidget {
           primary: color,
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           textStyle: TextStyle(
-              color: textColor, fontSize: 14, fontWeight: FontWeight.w500)),
+            color: textColor,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          )),
     );
   }
 }

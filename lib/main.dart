@@ -25,8 +25,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: kPrimaryColor,
-          scaffoldBackgroundColor: Colors.white,
+          fontFamily: "Poppins",
         ),
         // anything inside Wrapper widget can access the data provided by the StreamProvider
         home: Wrapper(),
