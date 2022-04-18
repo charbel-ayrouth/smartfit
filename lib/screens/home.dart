@@ -26,24 +26,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[50],
-      appBar: AppBar(
-        title: Text("Brew Crew"),
-        backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-        actions: [
-          ElevatedButton.icon(
-            onPressed: () async {
-              await _auth.signOut();
-            },
-            icon: Icon(Icons.person),
-            label: Text("logout"),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.brown,
-            ),
-          ),
-        ],
-      ),
       // to keep the widget alive not destroyed when we switch to another page
       body: IndexedStack(
         index: currentIndex,
