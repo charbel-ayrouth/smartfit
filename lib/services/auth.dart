@@ -10,8 +10,7 @@ class AuthService {
 
   //auth change user stream (get li2am getter)
   Stream<User?> get user {
-    return _auth
-        .authStateChanges(); // Notifies about changes to the user's sign-in state
+    return _auth.userChanges();
   }
 
   // sign in anonymous

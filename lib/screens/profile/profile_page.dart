@@ -2,7 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:smartfit/screens/profile/components/edit_button.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/services/auth.dart';
@@ -10,22 +9,25 @@ import 'package:smartfit/shared/background.dart';
 import './components/rounded_button.dart';
 import 'components/profile_image.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   final AuthService _auth = AuthService();
+  late User user;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final user = Provider.of<User?>(context);
     return Background(
       child: Container(
         height: double.infinity,
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage("assets/images/background.jpeg"),
-        //     fit: BoxFit.cover,
-        //   ),
-        // ),
         child: Align(
           alignment: Alignment.center,
           child: Column(
@@ -42,9 +44,9 @@ class ProfilePage extends StatelessWidget {
                   ],
                 ),
               ),
-              Profile(imageUrl: user?.photoURL),
+              Profile(imageUrl: user.photoURL),
               Text(
-                user!.displayName ?? user.email.toString(),
+                user.displayName!,
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,

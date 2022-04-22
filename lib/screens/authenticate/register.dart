@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:smartfit/screens/profile/components/profile_image.dart';
 import 'package:smartfit/services/auth.dart';
 import 'package:smartfit/services/profile_services.dart';
 import 'package:smartfit/screens/authenticate/components/account_check.dart';
@@ -161,7 +160,7 @@ class _RegisterState extends State<Register> {
                             });
                             dynamic result = await _auth
                                 .registerWithEmailAndPassword(email, password);
-                            await _profileServices.updateProfileName(username);
+                            _profileServices.updateProfileName(username);
                             if (result == null) {
                               setState(() {
                                 error = "Please supply a avalid email";

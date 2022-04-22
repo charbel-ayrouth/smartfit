@@ -6,7 +6,9 @@ class ProfileServices {
   ProfileServices({required this.authenticate});
   void updateImage() {}
 
-  Future updateProfileName(String name) async {
+  void updateProfileName(String name) async {
+    await authenticate.currentUser!.reload();
     await authenticate.currentUser!.updateDisplayName(name);
+    await authenticate.currentUser!.reload();
   }
 }
