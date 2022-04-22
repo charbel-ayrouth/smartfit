@@ -4,6 +4,10 @@ import 'package:smartfit/services/database.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  get auth {
+    return _auth;
+  }
+
   //auth change user stream (get li2am getter)
   Stream<User?> get user {
     return _auth
@@ -44,8 +48,8 @@ class AuthService {
       );
       User? user = result.user;
       //create a new doc for the user with his uid
-      await DatabaseService(uid: user!.uid)
-          .updateUserData('0', 'new crew member', 100);
+      // await DatabaseService(uid: user!.uid)
+      //     .updateUserData('0', 'new crew member', 100);
       return user;
     } catch (e) {
       print(e.toString());

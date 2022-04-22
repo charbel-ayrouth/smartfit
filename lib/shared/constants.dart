@@ -14,3 +14,4 @@ const textInputDecoration = InputDecoration(
 const kPrimaryColor = Color(0xFFF7931E);
 const kSecondaryOrange = Color(0x99F7931E);
 const kInputColor = Color(0xFFfcd9b0);
+const kGrey = Color(0x75919191);

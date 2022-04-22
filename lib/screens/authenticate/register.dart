@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:smartfit/screens/profile/components/profile_image.dart';
 import 'package:smartfit/services/auth.dart';
+import 'package:smartfit/services/profile_services.dart';
 import 'package:smartfit/screens/authenticate/components/account_check.dart';
 import 'package:smartfit/screens/authenticate/components/rounded_button.dart';
 import 'package:smartfit/screens/authenticate/components/rounded_input_field.dart';
+import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'package:smartfit/shared/loading.dart';
 
@@ -18,11 +21,15 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
+  final ProfileServices _profileServices =
+      ProfileServices(authenticate: AuthService().auth);
+
   //we are going to use this key to identify our form
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
   bool loading = false;
+  String username = "";
   String email = "";
   String password = "";
   String error = "";
@@ -33,21 +40,13 @@ class _RegisterState extends State<Register> {
     return loading
         ? Loading()
         : Scaffold(
-            body: Container(
-              // width: double.infinity,
-              // height: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/background.jpeg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            body: Background(
               child: Form(
                 key: _formKey,
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: 100),
+                      SizedBox(height: 80),
                       Text(
                         "SIGN UP",
                         style: TextStyle(
@@ -64,14 +63,34 @@ class _RegisterState extends State<Register> {
                           color: Color(0xFFBABABA),
                         ),
                       ),
-                      SizedBox(height: 47),
+                      SizedBox(height: 30),
                       RoundedInputField(
-                          hintText: "Enter your E-mail",
+                          hintText: "Enter your username",
                           obscureText: false,
                           icon: Icons.person,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Please Enter an email";
+                              return "Please Enter a valid username";
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              username = value;
+                            });
+                          }),
+                      SizedBox(height: 23),
+                      RoundedInputField(
+                          hintText: "Enter your E-mail",
+                          obscureText: false,
+                          icon: Icons.alternate_email,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please Enter a valid email address";
+                            }
+                            // using regular expression
+                            if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                              return "Please enter a valid email address";
                             }
                             return null;
                           },
@@ -80,7 +99,7 @@ class _RegisterState extends State<Register> {
                               email = value;
                             });
                           }),
-                      SizedBox(height: 30),
+                      SizedBox(height: 23),
                       RoundedInputField(
                         controller: _pass,
                         hintText: "Enter your Password",
@@ -89,6 +108,12 @@ class _RegisterState extends State<Register> {
                           if (value!.length < 6) {
                             return 'Enter a password 6+ char long';
                           }
+                          // using regular expression
+                          // if (!RegExp(
+                          //         r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$")
+                          //     .hasMatch(value)) {
+                          //   return "Password should be alpha numeric, contain a special character, greate than 8 characters";
+                          // }
                           return null;
                         },
                         onChanged: (value) {
@@ -98,7 +123,7 @@ class _RegisterState extends State<Register> {
                         },
                         obscureText: true,
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 23),
                       RoundedInputField(
                         controller: _confirmPass,
                         hintText: "Confirm Password",
@@ -136,6 +161,7 @@ class _RegisterState extends State<Register> {
                             });
                             dynamic result = await _auth
                                 .registerWithEmailAndPassword(email, password);
+                            await _profileServices.updateProfileName(username);
                             if (result == null) {
                               setState(() {
                                 error = "Please supply a avalid email";
@@ -151,7 +177,7 @@ class _RegisterState extends State<Register> {
                           press: () {
                             widget.toggleView();
                           }),
-                      SizedBox(height: 40),
+                      SizedBox(height: 20),
                     ],
                   ),
                 ),

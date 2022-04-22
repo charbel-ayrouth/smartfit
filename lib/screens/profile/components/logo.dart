@@ -4,7 +4,7 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey,
+      // color: Colors.grey,
       child: Image.asset(
         "assets/images/Logo.png",
         height: 30,

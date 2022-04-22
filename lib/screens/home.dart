@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
         onTap: (index) => setState(() => currentIndex = index),
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
           BottomNavigationBarItem(
@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
             label: 'Workouts',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics),
+            icon: Icon(Icons.analytics_outlined),
             label: 'Analysis',
           ),
           BottomNavigationBarItem(

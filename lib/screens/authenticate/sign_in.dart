@@ -7,6 +7,7 @@ import 'package:smartfit/services/auth.dart';
 import 'package:smartfit/screens/authenticate/components/account_check.dart';
 import 'package:smartfit/screens/authenticate/components/rounded_button.dart';
 import 'package:smartfit/screens/authenticate/components/rounded_input_field.dart';
+import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'package:smartfit/shared/loading.dart';
 
@@ -37,13 +38,7 @@ class _SignInState extends State<SignIn> {
         ? Loading()
         : Scaffold(
             // resizeToAvoidBottomInset: false,
-            body: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/background.jpeg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            body: Background(
               child: Form(
                 key: _formkey,
                 child: SingleChildScrollView(
@@ -133,7 +128,7 @@ class _SignInState extends State<SignIn> {
                           press: () {
                             widget.toggleView();
                           }),
-                      SizedBox(height: 50),
+                      // SizedBox(height: 100),
                     ],
                   ),
                 ),
