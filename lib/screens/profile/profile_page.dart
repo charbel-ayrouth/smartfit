@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smartfit/screens/profile/components/edit_button.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/services/auth.dart';
@@ -16,7 +17,6 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final AuthService _auth = AuthService();
-  late User user;
   @override
   void initState() {
     super.initState();
@@ -24,6 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
     Size size = MediaQuery.of(context).size;
     return Background(
       child: Container(
@@ -44,9 +45,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
-              Profile(imageUrl: user.photoURL),
+              Profile(imageUrl: user?.photoURL),
               Text(
-                user.displayName!,
+                user?.displayName.toString() ?? '',
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,

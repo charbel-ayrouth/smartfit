@@ -17,11 +17,16 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<User?>.value(
-      value: AuthService().user, // we are listening to the Stream user
-      initialData: null,
-      catchError: (_, __) {},
-
+    // return StreamProvider<User?>.value(
+    // we are listening to the Stream user
+    // value: AuthService().user,
+    // initialData: null,
+    // catchError: (_, __) {},
+    return MultiProvider(
+      providers: [
+        StreamProvider(create: (_) => AuthService().user, initialData: null),
+        StreamProvider(create: (_) => AuthService().userData, initialData: null)
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

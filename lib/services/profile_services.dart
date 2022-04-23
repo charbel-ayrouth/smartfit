@@ -4,11 +4,11 @@ class ProfileServices {
   // final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseAuth authenticate;
   ProfileServices({required this.authenticate});
-  void updateImage() {}
+  void updateImage(String path) async {
+    await authenticate.currentUser!.updatePhotoURL(path);
+  }
 
   void updateProfileName(String name) async {
-    await authenticate.currentUser!.reload();
     await authenticate.currentUser!.updateDisplayName(name);
-    await authenticate.currentUser!.reload();
   }
 }

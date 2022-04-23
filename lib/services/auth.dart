@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:smartfit/services/database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -10,6 +9,10 @@ class AuthService {
 
   //auth change user stream (get li2am getter)
   Stream<User?> get user {
+    return _auth.authStateChanges();
+  }
+
+  Stream<User?> get userData {
     return _auth.userChanges();
   }
 
