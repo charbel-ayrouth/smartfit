@@ -20,8 +20,6 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
-  final ProfileServices _profileServices =
-      ProfileServices(authenticate: AuthService().auth);
 
   //we are going to use this key to identify our form
   final _formKey = GlobalKey<FormState>();

@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:smartfit/screens/authenticate/register.dart';
 import 'package:smartfit/services/auth.dart';
 import 'package:smartfit/screens/authenticate/components/account_check.dart';
 import 'package:smartfit/screens/authenticate/components/rounded_button.dart';

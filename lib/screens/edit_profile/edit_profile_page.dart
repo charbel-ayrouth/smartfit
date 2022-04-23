@@ -36,10 +36,10 @@ class _EditProfileState extends State<EditProfile> {
 
     void _showPasswordForm() {
       showModalBottomSheet(
+          isScrollControlled: true,
           context: context,
           builder: (context) {
             return Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
               child: PasswordForm(),
             );
           });
@@ -65,7 +65,7 @@ class _EditProfileState extends State<EditProfile> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  GoBackButton(),
+                                  GoBackButton(displayText: "Edit Account"),
                                   Logo(),
                                 ],
                               ),

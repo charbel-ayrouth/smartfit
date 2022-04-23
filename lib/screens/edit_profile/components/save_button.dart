@@ -14,7 +14,7 @@ class SaveButton extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             onPressed: onPress,
-            child: Text(
+            child: const Text(
               "Save",
               style: TextStyle(
                 fontSize: 19.0,
