@@ -5,9 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smartfit/screens/profile/components/profile_image.dart';
-import 'package:smartfit/services/auth.dart';
 import 'package:smartfit/shared/background.dart';
-import 'package:smartfit/shared/constants.dart';
 import 'package:smartfit/shared/loading.dart';
 
 import '../profile/components/edit_photo.dart';
@@ -19,6 +17,8 @@ import 'components/save_button.dart';
 import 'components/text_field_input.dart';
 
 class EditProfile extends StatefulWidget {
+  const EditProfile({Key? key}) : super(key: key);
+
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
@@ -96,7 +96,6 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         SizedBox(height: 5.0),
                         TextFieldInput(
-                          disabled: true,
                           value: user!.displayName != null
                               ? user.displayName.toString()
                               : "Enter your name",
@@ -127,6 +126,7 @@ class _EditProfileState extends State<EditProfile> {
                         SizedBox(height: 5.0),
                         TextFieldInput(
                           value: user.email.toString(),
+                          enabled: false,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Please Enter your Email";
@@ -142,7 +142,7 @@ class _EditProfileState extends State<EditProfile> {
                           if (_formkey.currentState!.validate()) {
                             // setState(() => loading = true);
                             print("name ${user.displayName}");
-                            print("email ${Email}");
+                            print("email $Email");
                           }
                         }),
                       ],

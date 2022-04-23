@@ -42,20 +42,27 @@ class AuthService {
   }
 
   //register with email and password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(
+      String email, String password, String username) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       User? user = result.user;
+      user?.updateDisplayName(username);
+      if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+      }
       //create a new doc for the user with his uid
       // await DatabaseService(uid: user!.uid)
       //     .updateUserData('0', 'new crew member', 100);
       return user;
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       print(e.toString());
-      return null;
+      return 'Problem Occured: ' + e.toString();
+    } catch (error) {
+      return 'Problem Occured: Something Went Wrong';
     }
   }
 

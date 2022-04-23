@@ -12,7 +12,7 @@ import 'package:smartfit/shared/loading.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
-  Register({required this.toggleView});
+  const Register({required this.toggleView});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -158,12 +158,13 @@ class _RegisterState extends State<Register> {
                             setState(() {
                               loading = true;
                             });
-                            dynamic result = await _auth
-                                .registerWithEmailAndPassword(email, password);
-                            _profileServices.updateProfileName(username);
-                            if (result == null) {
+                            dynamic result =
+                                await _auth.registerWithEmailAndPassword(
+                                    email, password, username);
+                            if (result == null ||
+                                result.toString().contains('Problem Occured')) {
                               setState(() {
-                                error = "Please supply a avalid email";
+                                error = result.toString().substring(0, 17);
                                 loading = false;
                               });
                             }
