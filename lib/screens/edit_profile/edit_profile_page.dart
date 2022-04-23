@@ -96,6 +96,7 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         SizedBox(height: 5.0),
                         TextFieldInput(
+                          disabled: true,
                           value: user!.displayName != null
                               ? user.displayName.toString()
                               : "Enter your name",

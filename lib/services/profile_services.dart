@@ -11,4 +11,8 @@ class ProfileServices {
   void updateProfileName(String name) async {
     await authenticate.currentUser!.updateDisplayName(name);
   }
+
+  void updatePassword(String password) async {
+    await authenticate.currentUser!.updatePassword(password);
+  }
 }
