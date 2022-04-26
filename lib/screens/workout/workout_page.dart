@@ -7,6 +7,7 @@ class WorkoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: prefer_const_constructors
     return Center(child: Text('Workout', style: TextStyle(fontSize: 60)));
   }
 }

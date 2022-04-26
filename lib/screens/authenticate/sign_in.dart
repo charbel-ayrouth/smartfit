@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:smartfit/screens/welcome/welcome.dart';
 import 'package:smartfit/services/auth.dart';
 import 'package:smartfit/screens/authenticate/components/account_check.dart';
 import 'package:smartfit/screens/authenticate/components/rounded_button.dart';
@@ -62,6 +63,15 @@ class _SignInState extends State<SignIn> {
                             fontWeight: FontWeight.w700),
                       ),
                       SizedBox(height: 70),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Welcome(),
+                                ));
+                          },
+                          child: Text("Welcome Screen")),
                       RoundedInputField(
                           hintText: "Enter your E-mail",
                           obscureText: false,
