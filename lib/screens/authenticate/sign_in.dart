@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:smartfit/screens/welcome/welcome.dart';
+import 'package:smartfit/screens/authenticate/components/sign_in_with.dart';
 import 'package:smartfit/services/auth.dart';
 import 'package:smartfit/screens/authenticate/components/account_check.dart';
 import 'package:smartfit/screens/authenticate/components/rounded_button.dart';
@@ -21,7 +22,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   // instance of the auth service class
   final AuthService _auth = AuthService();
-
+  bool _isObcscure = true;
   bool loading = false;
   //store email and password
   String email = "";
@@ -87,22 +88,34 @@ class _SignInState extends State<SignIn> {
                               email = value;
                             });
                           }),
-                      SizedBox(height: 55),
+                      SizedBox(height: 40),
                       RoundedInputField(
-                          hintText: "Enter your Password",
-                          icon: Icons.lock,
-                          validator: (value) {
-                            if (value!.length < 6) {
-                              return 'Enter a password 6+ char long';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
+                        hintText: "Enter your Password",
+                        icon: Icons.lock,
+                        validator: (value) {
+                          if (value!.length < 6) {
+                            return 'Enter a password 6+ char long';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            password = value;
+                          });
+                        },
+                        obscureText: _isObcscure,
+                        suffixIcon1: IconButton(
+                          color: kSecondaryOrange,
+                          icon: Icon(_isObcscure
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
                             setState(() {
-                              password = value;
+                              _isObcscure = !_isObcscure;
                             });
                           },
-                          obscureText: true),
+                        ),
+                      ),
                       Text(
                         error,
                         style: TextStyle(
@@ -127,6 +140,17 @@ class _SignInState extends State<SignIn> {
                             }
                           }
                         },
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      SignInWith(
+                        icon1: Icons.facebook,
+                        onTap: () {},
+                      ),
+                      SignInWith(
+                        icon1: Icons.email_rounded,
+                        onTap: () {},
                       ),
                       SizedBox(
                         height: 25,

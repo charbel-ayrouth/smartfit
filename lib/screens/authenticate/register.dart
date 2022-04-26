@@ -30,6 +30,7 @@ class _RegisterState extends State<Register> {
   String email = "";
   String password = "";
   String error = "";
+  bool _isObcscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +102,17 @@ class _RegisterState extends State<Register> {
                         controller: _pass,
                         hintText: "Enter your Password",
                         icon: Icons.lock,
+                        suffixIcon1: IconButton(
+                          color: kSecondaryOrange,
+                          icon: Icon(_isObcscure
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _isObcscure = !_isObcscure;
+                            });
+                          },
+                        ),
                         validator: (value) {
                           if (value!.length < 6) {
                             return 'Enter a password 6+ char long';
@@ -118,13 +130,24 @@ class _RegisterState extends State<Register> {
                             password = value;
                           });
                         },
-                        obscureText: true,
+                        obscureText: _isObcscure,
                       ),
                       SizedBox(height: 23),
                       RoundedInputField(
                         controller: _confirmPass,
                         hintText: "Confirm Password",
                         icon: Icons.lock,
+                        suffixIcon1: IconButton(
+                          color: kSecondaryOrange,
+                          icon: Icon(_isObcscure
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _isObcscure = !_isObcscure;
+                            });
+                          },
+                        ),
                         validator: (value) {
                           if (value!.length < 6) {
                             return 'Enter a password 6+ char long';
@@ -139,7 +162,7 @@ class _RegisterState extends State<Register> {
                             password = value;
                           });
                         },
-                        obscureText: true,
+                        obscureText: _isObcscure,
                       ),
                       Text(
                         error,

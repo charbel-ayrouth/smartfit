@@ -16,7 +16,7 @@ class EditButton extends StatelessWidget {
                 builder: (context) => EditProfile(),
               ));
         },
-        icon: Icon(
+        icon: const Icon(
           Icons.edit,
           color: kPrimaryColor,
           size: 20,

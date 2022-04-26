@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:smartfit/shared/constants.dart';
 
@@ -12,6 +10,7 @@ class RoundedInputField extends StatelessWidget {
   final void Function(String)? onChanged;
   final bool obscureText;
   final TextEditingController? controller;
+  final Widget? suffixIcon1;
   RoundedInputField({
     required this.hintText,
     required this.icon,
@@ -19,6 +18,7 @@ class RoundedInputField extends StatelessWidget {
     required this.onChanged,
     required this.obscureText,
     this.controller,
+    this.suffixIcon1,
   });
 
   @override
@@ -61,6 +61,7 @@ class RoundedInputField extends StatelessWidget {
             icon,
             color: kInputColor,
           ),
+          suffixIcon: suffixIcon1,
           hintStyle: TextStyle(
             color: kInputColor,
           ),
