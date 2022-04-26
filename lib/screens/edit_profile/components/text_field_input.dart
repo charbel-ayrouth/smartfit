@@ -9,7 +9,7 @@ class TextFieldInput extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscure;
   final void Function(String)? onChanged;
-  const TextFieldInput({
+  TextFieldInput({
     this.text,
     this.value,
     this.validator,
