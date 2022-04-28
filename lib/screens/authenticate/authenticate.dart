@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartfit/screens/authenticate/register.dart';
 import 'package:smartfit/screens/authenticate/sign_in.dart';
+import 'package:smartfit/screens/welcome/welcome.dart';
 
 class Authenticate extends StatefulWidget {
   const Authenticate({Key? key}) : super(key: key);
@@ -10,19 +11,23 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
-  bool showSignIn = true;
-  void toggleView() {
+  String showSignIn = '';
+  void toggleView(String screen) {
     setState(() {
-      showSignIn = !showSignIn;
+      showSignIn = screen;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (showSignIn) {
+    if (showSignIn == 'Login') {
       return SignIn(toggleView: toggleView);
-    } else {
+    } else if (showSignIn == 'Register') {
       return Register(toggleView: toggleView);
+    } else {
+      return Welcome(
+        toggleView: toggleView,
+      );
     }
   }
 }

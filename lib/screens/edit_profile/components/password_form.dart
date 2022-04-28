@@ -137,7 +137,7 @@ class _PasswordFormState extends State<PasswordForm> {
                       }
                     },
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Text(
                     error,
                     style: const TextStyle(

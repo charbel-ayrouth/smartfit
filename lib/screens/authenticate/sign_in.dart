@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:smartfit/screens/welcome/welcome.dart';
 import 'package:smartfit/screens/authenticate/components/sign_in_with.dart';
 import 'package:smartfit/services/auth.dart';
 import 'package:smartfit/screens/authenticate/components/account_check.dart';
@@ -13,7 +10,7 @@ import 'package:smartfit/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
-  SignIn({required this.toggleView});
+  const SignIn({Key? key, required this.toggleView}) : super(key: key);
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -33,19 +30,17 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return loading
         ? Loading()
         : Scaffold(
-            // resizeToAvoidBottomInset: false,
             body: Background(
               child: Form(
                 key: _formkey,
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: 100),
-                      Text(
+                      const SizedBox(height: 100),
+                      const Text(
                         "SIGN IN",
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
@@ -53,8 +48,8 @@ class _SignInState extends State<SignIn> {
                           color: kPrimaryColor,
                         ),
                       ),
-                      SizedBox(height: 7),
-                      Text(
+                      const SizedBox(height: 7),
+                      const Text(
                         "WELCOME BACK !",
                         style: TextStyle(
                             fontSize: 12,
@@ -63,16 +58,7 @@ class _SignInState extends State<SignIn> {
                             ),
                             fontWeight: FontWeight.w700),
                       ),
-                      SizedBox(height: 70),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Welcome(),
-                                ));
-                          },
-                          child: Text("Welcome Screen")),
+                      const SizedBox(height: 40),
                       RoundedInputField(
                           hintText: "Enter your E-mail",
                           obscureText: false,
@@ -88,7 +74,7 @@ class _SignInState extends State<SignIn> {
                               email = value;
                             });
                           }),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                       RoundedInputField(
                         hintText: "Enter your Password",
                         icon: Icons.lock,
@@ -118,12 +104,12 @@ class _SignInState extends State<SignIn> {
                       ),
                       Text(
                         error,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.red,
                           fontSize: 14.0,
                         ),
                       ),
-                      SizedBox(height: 33),
+                      const SizedBox(height: 10),
                       RoundedButton(
                         text: "Sign In",
                         press: () async {
@@ -141,26 +127,27 @@ class _SignInState extends State<SignIn> {
                           }
                         },
                       ),
-                      SizedBox(
+                      AccountCheck(
+                          login: true,
+                          press: () {
+                            widget.toggleView('Register');
+                          }),
+                      const SizedBox(
                         height: 25,
                       ),
                       SignInWith(
+                        title: 'Sign In With Facebook',
                         icon1: Icons.facebook,
                         onTap: () {},
                       ),
                       SignInWith(
+                        title: 'Sign In with Googe',
                         icon1: Icons.email_rounded,
                         onTap: () {},
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
-                      AccountCheck(
-                          login: true,
-                          press: () {
-                            widget.toggleView();
-                          }),
-                      // SizedBox(height: 100),
                     ],
                   ),
                 ),

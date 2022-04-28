@@ -1,12 +1,11 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:smartfit/shared/constants.dart';
 
 class AccountCheck extends StatelessWidget {
   final bool login;
   final void Function()? press;
-  AccountCheck({required this.login, required this.press});
+  const AccountCheck({Key? key, required this.login, required this.press})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class AccountCheck extends StatelessWidget {
       children: <Widget>[
         Text(
           login ? "Don’t have an Account ? " : "Already have an Account ? ",
-          style: TextStyle(
+          style: const TextStyle(
             color: Color(0xFF777777),
             fontSize: 12,
             fontWeight: FontWeight.bold,
@@ -25,7 +24,7 @@ class AccountCheck extends StatelessWidget {
           onTap: press,
           child: Text(
             login ? "Sign Up" : "Sign In",
-            style: TextStyle(
+            style: const TextStyle(
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),

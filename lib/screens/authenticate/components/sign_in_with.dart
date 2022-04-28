@@ -3,8 +3,11 @@ import 'package:smartfit/shared/constants.dart';
 
 class SignInWith extends StatelessWidget {
   final IconData icon1;
+  final String title;
   final void Function()? onTap;
-  SignInWith({required this.icon1, required this.onTap});
+  const SignInWith(
+      {Key? key, required this.icon1, required this.onTap, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class SignInWith extends StatelessWidget {
         icon1,
         size: 24.0,
       ),
-      label: const Text('Log in with Facebook'), // <-- Text
+      label: Text(title), // <-- Text
     );
   }
 }

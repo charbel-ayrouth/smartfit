@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:smartfit/services/auth.dart';
-import 'package:smartfit/services/profile_services.dart';
 import 'package:smartfit/screens/authenticate/components/account_check.dart';
 import 'package:smartfit/screens/authenticate/components/rounded_button.dart';
 import 'package:smartfit/screens/authenticate/components/rounded_input_field.dart';
@@ -12,7 +9,7 @@ import 'package:smartfit/shared/loading.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
-  const Register({required this.toggleView});
+  const Register({Key? key, required this.toggleView}) : super(key: key);
 
   @override
   State<Register> createState() => _RegisterState();
@@ -44,16 +41,16 @@ class _RegisterState extends State<Register> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: 80),
-                      Text(
+                      const SizedBox(height: 80),
+                      const Text(
                         "SIGN UP",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 42,
                             color: kPrimaryColor),
                       ),
-                      SizedBox(height: 7),
-                      Text(
+                      const SizedBox(height: 7),
+                      const Text(
                         "REGISTER YOURSELF HERE",
                         style: TextStyle(
                           fontSize: 12,
@@ -61,7 +58,7 @@ class _RegisterState extends State<Register> {
                           color: Color(0xFFBABABA),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       RoundedInputField(
                           hintText: "Enter your username",
                           obscureText: false,
@@ -77,7 +74,7 @@ class _RegisterState extends State<Register> {
                               username = value;
                             });
                           }),
-                      SizedBox(height: 23),
+                      const SizedBox(height: 23),
                       RoundedInputField(
                           hintText: "Enter your E-mail",
                           obscureText: false,
@@ -97,7 +94,7 @@ class _RegisterState extends State<Register> {
                               email = value;
                             });
                           }),
-                      SizedBox(height: 23),
+                      const SizedBox(height: 23),
                       RoundedInputField(
                         controller: _pass,
                         hintText: "Enter your Password",
@@ -132,7 +129,7 @@ class _RegisterState extends State<Register> {
                         },
                         obscureText: _isObcscure,
                       ),
-                      SizedBox(height: 23),
+                      const SizedBox(height: 23),
                       RoundedInputField(
                         controller: _confirmPass,
                         hintText: "Confirm Password",
@@ -166,12 +163,12 @@ class _RegisterState extends State<Register> {
                       ),
                       Text(
                         error,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.red,
                           fontSize: 14.0,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       RoundedButton(
                         text: "Sign Up",
                         press: () async {
@@ -192,13 +189,13 @@ class _RegisterState extends State<Register> {
                           }
                         },
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       AccountCheck(
                           login: false,
                           press: () {
-                            widget.toggleView();
+                            widget.toggleView('Login');
                           }),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
