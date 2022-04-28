@@ -17,6 +17,9 @@ class _PasswordFormState extends State<PasswordForm> {
   String newPass = "";
   String error = "";
   String confirmPass = "";
+  bool _old = true;
+  bool _new = true;
+  bool _confirm = true;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,15 @@ class _PasswordFormState extends State<PasswordForm> {
                   ),
                   const SizedBox(height: 5.0),
                   TextFieldInput(
-                      obscure: true,
+                      obscure: _old,
+                      SuffixIcon1: IconButton(
+                          icon: Icon(
+                              _old ? Icons.visibility : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _old = !_old;
+                            });
+                          }),
                       text: "Enter your old password",
                       validator: (value) {
                         if (value!.length < 6) {
@@ -76,7 +87,15 @@ class _PasswordFormState extends State<PasswordForm> {
                   ),
                   const SizedBox(height: 5.0),
                   TextFieldInput(
-                      obscure: true,
+                      obscure: _new,
+                      SuffixIcon1: IconButton(
+                          icon: Icon(
+                              _new ? Icons.visibility : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _new = !_new;
+                            });
+                          }),
                       text: "Enter your new password",
                       validator: (value) {
                         if (value!.length < 6) {
@@ -105,7 +124,16 @@ class _PasswordFormState extends State<PasswordForm> {
                   ),
                   const SizedBox(height: 5.0),
                   TextFieldInput(
-                      obscure: true,
+                      obscure: _confirm,
+                      SuffixIcon1: IconButton(
+                          icon: Icon(_confirm
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _confirm = !_confirm;
+                            });
+                          }),
                       text: "Re-enter you new password",
                       validator: (value) {
                         if (value!.length < 6) {

@@ -36,19 +36,22 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    EditButton(),
+                    if (user!.isAnonymous) SizedBox() else EditButton(),
                     Logo(),
                   ],
                 ),
               ),
-              Profile(imageUrl: user?.photoURL),
-              Text(
-                user?.displayName.toString() ?? '',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
+              Profile(imageUrl: user.photoURL),
+              if (user.displayName == null)
+                SizedBox(height: 8)
+              else
+                Text(
+                  user.displayName.toString(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
               RoundedButton(
                 function: () {},
                 text: "Admin Dashboard",

@@ -9,6 +9,7 @@ class TextFieldInput extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscure;
   final void Function(String)? onChanged;
+  final Widget? SuffixIcon1;
   TextFieldInput({
     this.text,
     this.value,
@@ -17,6 +18,7 @@ class TextFieldInput extends StatelessWidget {
     this.controller,
     this.obscure = false,
     required this.onChanged,
+    this.SuffixIcon1,
   });
 
   @override
@@ -43,6 +45,7 @@ class TextFieldInput extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
+          suffixIcon: SuffixIcon1,
         ),
       ),
     );

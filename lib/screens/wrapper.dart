@@ -15,7 +15,7 @@ class Wrapper extends StatelessWidget {
     // redirect depending if signed in or not
     if (user == null) {
       return Authenticate();
-    } else if (user.emailVerified) {
+    } else if (user.emailVerified || user.isAnonymous) {
       return Home();
     } else {
       return EmailVericationScreen();

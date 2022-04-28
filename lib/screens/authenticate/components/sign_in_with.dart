@@ -14,7 +14,7 @@ class SignInWith extends StatelessWidget {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
         ),
         primary: kPrimaryColor,
       ),

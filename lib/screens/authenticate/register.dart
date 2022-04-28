@@ -27,7 +27,8 @@ class _RegisterState extends State<Register> {
   String email = "";
   String password = "";
   String error = "";
-  bool _isObcscure = true;
+  bool _new = true;
+  bool _confirm = true;
 
   @override
   Widget build(BuildContext context) {
@@ -101,12 +102,11 @@ class _RegisterState extends State<Register> {
                         icon: Icons.lock,
                         suffixIcon1: IconButton(
                           color: kSecondaryOrange,
-                          icon: Icon(_isObcscure
-                              ? Icons.visibility
-                              : Icons.visibility_off),
+                          icon: Icon(
+                              _new ? Icons.visibility : Icons.visibility_off),
                           onPressed: () {
                             setState(() {
-                              _isObcscure = !_isObcscure;
+                              _new = !_new;
                             });
                           },
                         ),
@@ -127,7 +127,7 @@ class _RegisterState extends State<Register> {
                             password = value;
                           });
                         },
-                        obscureText: _isObcscure,
+                        obscureText: _new,
                       ),
                       const SizedBox(height: 23),
                       RoundedInputField(
@@ -136,12 +136,12 @@ class _RegisterState extends State<Register> {
                         icon: Icons.lock,
                         suffixIcon1: IconButton(
                           color: kSecondaryOrange,
-                          icon: Icon(_isObcscure
+                          icon: Icon(_confirm
                               ? Icons.visibility
                               : Icons.visibility_off),
                           onPressed: () {
                             setState(() {
-                              _isObcscure = !_isObcscure;
+                              _confirm = !_confirm;
                             });
                           },
                         ),
@@ -159,7 +159,7 @@ class _RegisterState extends State<Register> {
                             password = value;
                           });
                         },
-                        obscureText: _isObcscure,
+                        obscureText: _confirm,
                       ),
                       Text(
                         error,

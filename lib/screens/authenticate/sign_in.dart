@@ -58,7 +58,7 @@ class _SignInState extends State<SignIn> {
                             ),
                             fontWeight: FontWeight.w700),
                       ),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 35),
                       RoundedInputField(
                           hintText: "Enter your E-mail",
                           obscureText: false,
@@ -74,7 +74,7 @@ class _SignInState extends State<SignIn> {
                               email = value;
                             });
                           }),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 30),
                       RoundedInputField(
                         hintText: "Enter your Password",
                         icon: Icons.lock,
@@ -136,14 +136,18 @@ class _SignInState extends State<SignIn> {
                         height: 25,
                       ),
                       SignInWith(
-                        title: 'Sign In With Facebook',
-                        icon1: Icons.facebook,
-                        onTap: () {},
-                      ),
-                      SignInWith(
-                        title: 'Sign In with Googe',
+                        title: 'Continue as anonymous',
                         icon1: Icons.email_rounded,
-                        onTap: () {},
+                        onTap: () async {
+                          setState(() => loading = true);
+                          dynamic result = await _auth.signInAnon();
+                          if (result == null) {
+                            setState(() {
+                              error = "Something went wrong";
+                              loading = false;
+                            });
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 25,
