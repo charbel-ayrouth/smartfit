@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/screens/workout/components/training_card.dart';
+import 'package:smartfit/screens/workout_progress/workout_progress.dart';
 import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
 
@@ -44,28 +45,34 @@ class WorkoutPage extends StatelessWidget {
                   runSpacing: 15,
                   children: [
                     TrainingCard(
-                      workoutName: "Cycling",
-                      imageUrl: 'assets/images/cycling.png',
+                      workoutName: "Treadmill",
+                      imageUrl: 'assets/images/treadmill.png',
+                      onPress: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => WorkoutProgress())));
+                      },
                     ),
                     TrainingCard(
                       workoutName: "Cycling",
                       imageUrl: 'assets/images/cycling.png',
+                      onPress: () {},
                     ),
                     TrainingCard(
-                      workoutName: "Cycling",
-                      imageUrl: 'assets/images/cycling.png',
+                      workoutName: "Walking",
+                      imageUrl: 'assets/images/running.png',
+                      onPress: () {},
                     ),
                     TrainingCard(
-                      workoutName: "Cycling",
-                      imageUrl: 'assets/images/cycling.png',
+                      workoutName: "Hiking",
+                      imageUrl: 'assets/images/running.png',
+                      onPress: () {},
                     ),
                     TrainingCard(
-                      workoutName: "Cycling",
-                      imageUrl: 'assets/images/cycling.png',
-                    ),
-                    TrainingCard(
-                      workoutName: "Cycling",
-                      imageUrl: 'assets/images/cycling.png',
+                      workoutName: "Yoga",
+                      imageUrl: 'assets/images/yoga.png',
+                      onPress: () {},
                     ),
                   ],
                 )
