@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:smartfit/services/profile_services.dart';
 import 'package:smartfit/shared/constants.dart';
 
 class Photos extends StatefulWidget {
@@ -13,35 +16,37 @@ class _PhotosState extends State<Photos> {
   File? file;
   final imagePicker = ImagePicker();
 
-  void selectImage() async {
+  final ProfileServices _profileServices = ProfileServices();
+
+  void selectImage(String id) async {
     final result =
         await ImagePicker.platform.getImage(source: ImageSource.gallery);
     if (result == null) return;
-    setState(() {
-      file = File(result.path);
-    });
+    file = File(result.path);
     if (file != null) {
-      final filename = file!.path.split('/').last;
+      final filename = id + '.' + file!.path.split('.').last;
       final destination = 'Images/$filename';
-      FirebaseImages.uploadfile(destination, file!);
+      await FirebaseImages.uploadfile(destination, file!);
+      _profileServices.updateProfile(filename);
+      Navigator.of(context).pop();
     }
   }
 
-  void takePhoto() async {
+  void takePhoto(String id) async {
     final image =
         await ImagePicker.platform.getImage(source: ImageSource.camera);
-    setState(() {
-      file = File(image!.path);
-    });
+    file = File(image!.path);
     if (file != null) {
-      final filename = file!.path.split('/').last;
+      final filename = id + '.' + file!.path.split('.').last;
       final destination = 'Images/$filename';
       FirebaseImages.uploadfile(destination, file!);
+      Navigator.of(context).pop();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: Container(
@@ -59,14 +64,14 @@ class _PhotosState extends State<Photos> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    selectImage();
+                    selectImage(user!.uid);
                   },
                   child: const Text("Pick a photo"),
                   style: ElevatedButton.styleFrom(primary: kPrimaryColor),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    takePhoto();
+                    takePhoto(user!.uid);
                   },
                   child: const Text("Take a photo"),
                   style: ElevatedButton.styleFrom(primary: kPrimaryColor),
