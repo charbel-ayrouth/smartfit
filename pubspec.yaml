@@ -42,13 +42,9 @@ dependencies:
   file_picker: ^4.5.1
   image_picker: ^0.8.5
   path_provider: ^2.0.9
-<<<<<<< HEAD
   fl_chart: ^0.50.1
-  
-=======
   intl: ^0.17.0
 
->>>>>>> 569def40c280dbc4bff6d09040fb156aa4ab1020
 dev_dependencies:
   flutter_test:
     sdk: flutter
