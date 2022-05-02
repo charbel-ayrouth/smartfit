@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:smartfit/shared/constants.dart';
 
-class Background extends StatelessWidget {
+class Background extends StatefulWidget {
   final Widget child;
-  Background({required this.child});
+  final Color? color;
+  const Background({Key? key, required this.child, this.color})
+      : super(key: key);
 
+  @override
+  State<Background> createState() => _BackgroundState();
+}
+
+class _BackgroundState extends State<Background> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
+      color: widget.color,
       height: double.infinity,
       width: double.infinity,
       child: Stack(
@@ -41,7 +49,7 @@ class Background extends StatelessWidget {
               ),
             ),
           ),
-          child,
+          widget.child,
         ],
       ),
     );
