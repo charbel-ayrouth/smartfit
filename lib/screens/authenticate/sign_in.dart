@@ -136,8 +136,8 @@ class _SignInState extends State<SignIn> {
                         height: 25,
                       ),
                       SignInWith(
-                        title: 'Continue as anonymous',
-                        icon1: Icons.email_rounded,
+                        title: 'Continue as Guest',
+                        icon1: Icons.verified_user_outlined,
                         onTap: () async {
                           setState(() => loading = true);
                           dynamic result = await _auth.signInAnon();

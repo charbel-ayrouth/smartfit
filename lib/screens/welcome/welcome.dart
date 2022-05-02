@@ -11,6 +11,7 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Background(
+        color: Colors.white,
         child: Column(
           children: [
             Padding(
@@ -72,14 +73,18 @@ class Welcome extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
                       'Get Started',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    Icon(Icons.arrow_forward, color: Colors.white),
+                    Container(
+                      child:
+                          const Icon(Icons.arrow_forward, color: Colors.white),
+                      margin: const EdgeInsets.only(left: 10),
+                    )
                   ],
                 ),
               ),
