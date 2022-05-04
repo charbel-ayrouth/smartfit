@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -35,18 +37,16 @@ class ProfileServices {
     }
   }
 
-  Future updateProfile(String url) async {
-    await _auth.currentUser!
-        .updatePhotoURL("gs://smartfit-35c48.appspot.com/Images/+$url");
+  Future uploadfile(String destination, File file) async {
+    final ref = FirebaseStorage.instance.ref(destination);
+    await ref.putFile(file);
   }
 
-  Future<String> getProfileUrl(String photoUrl) async {
+  Future updateProfile(String uid) async {
     String url = await FirebaseStorage.instance
         .ref()
-        .child(
-            "gs://smartfit-35c48.appspot.com/Images/xQ8KcDx93YV0u4idjjfcLYXrgKf1.jpg")
+        .child("/Images/$uid")
         .getDownloadURL();
-    print(url);
-    return url;
+    await _auth.currentUser!.updatePhotoURL(url);
   }
 }

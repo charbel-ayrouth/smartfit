@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:smartfit/services/profile_services.dart';
 import 'package:smartfit/shared/constants.dart';
+import 'package:smartfit/shared/loading.dart';
 
 class Photos extends StatefulWidget {
   @override
@@ -24,10 +25,12 @@ class _PhotosState extends State<Photos> {
     if (result == null) return;
     file = File(result.path);
     if (file != null) {
-      final filename = id + '.' + file!.path.split('.').last;
+      final filename = id;
       final destination = 'Images/$filename';
-      await FirebaseImages.uploadfile(destination, file!);
-      _profileServices.updateProfile(filename);
+      setState(() => loading = true);
+      await _profileServices.uploadfile(destination, file!);
+      await _profileServices.updateProfile(id);
+      setState(() => loading = false);
       Navigator.of(context).pop();
     }
   }
@@ -37,51 +40,60 @@ class _PhotosState extends State<Photos> {
         await ImagePicker.platform.getImage(source: ImageSource.camera);
     file = File(image!.path);
     if (file != null) {
-      final filename = id + '.' + file!.path.split('.').last;
+      final filename = id;
       final destination = 'Images/$filename';
-      FirebaseImages.uploadfile(destination, file!);
+      setState(() => loading = true);
+      await _profileServices.uploadfile(destination, file!);
+      await _profileServices.updateProfile(id);
+      setState(() => loading = false);
       Navigator.of(context).pop();
     }
   }
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      child: Container(
-        height: 140,
-        padding: EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            const Text(
-              "Please choose your new profile picture",
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17.0),
+    return loading
+        ? Loading()
+        : Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            child: Container(
+              height: 140,
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  const Text(
+                    "Please choose your new profile picture",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 17.0),
+                  ),
+                  const SizedBox(height: 5.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          selectImage(user!.uid);
+                        },
+                        child: const Text("Pick a photo"),
+                        style: ElevatedButton.styleFrom(primary: kPrimaryColor),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          takePhoto(user!.uid);
+                        },
+                        child: const Text("Take a photo"),
+                        style: ElevatedButton.styleFrom(primary: kPrimaryColor),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 5.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    selectImage(user!.uid);
-                  },
-                  child: const Text("Pick a photo"),
-                  style: ElevatedButton.styleFrom(primary: kPrimaryColor),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    takePhoto(user!.uid);
-                  },
-                  child: const Text("Take a photo"),
-                  style: ElevatedButton.styleFrom(primary: kPrimaryColor),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }
 
