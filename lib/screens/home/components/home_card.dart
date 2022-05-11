@@ -1,16 +1,15 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
 class HomeCard extends StatelessWidget {
   final String ImageUrl;
-  HomeCard({required this.ImageUrl});
+  const HomeCard({Key? key, required this.ImageUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 50,
-      shadowColor: Color.fromARGB(255, 212, 212, 212),
+      shadowColor: const Color.fromARGB(255, 212, 212, 212),
       color: Colors.orangeAccent[200],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
