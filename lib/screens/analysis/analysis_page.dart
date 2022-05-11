@@ -56,10 +56,16 @@ class _AnalysisPageState extends State<AnalysisPage> {
     return Padding(child: text, padding: const EdgeInsets.only(top: 8.0));
   }
 
+  String analysisType = "Daily";
+  void setSelectedButton(String buttonName) {
+    setState(() {
+      analysisType = buttonName;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
-    String analysisType = 'Daily';
     return Background(
       child: SingleChildScrollView(
         child: Padding(
@@ -70,14 +76,9 @@ class _AnalysisPageState extends State<AnalysisPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [Logo()],
             ),
-            if (user?.displayName == null)
-            const Text("Hello User")
-          else
             Text(
-              "Hello " + user!.displayName.toString() + ",",
-              style: const TextStyle(
-                fontSize: 16.0,
-              ),
+              "Helo, ${user!.displayName} !",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const Text("Track Your Progress",
                 style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
@@ -103,7 +104,9 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 TextButton(
                   onPressed: () {
                     analysisType = 'Daily';
-                    setState(() {});
+                    setState(() {
+                      setSelectedButton("Daily");
+                    });
                   },
                   child: Text(
                     "Daily",
@@ -126,7 +129,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      analysisType = 'Weekly';
+                      setSelectedButton("Weekly");
                     });
                   },
                   child: Text(
@@ -150,7 +153,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      analysisType = 'Monthly';
+                      setSelectedButton("Monthly");
                     });
                   },
                   child: Text(
@@ -174,7 +177,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      analysisType = 'Yearly';
+                      setSelectedButton("Yearly");
                     });
                   },
                   child: Text(
