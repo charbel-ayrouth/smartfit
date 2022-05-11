@@ -5,6 +5,8 @@ import 'package:smartfit/shared/constants.dart';
 import 'package:intl/intl.dart';
 
 class WorkoutProgress extends StatelessWidget {
+  const WorkoutProgress({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     String cdate2 = DateFormat("MMMM dd").format(DateTime.now());

@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
@@ -17,6 +19,7 @@ class AnalysisPage extends StatefulWidget {
 
 class _AnalysisPageState extends State<AnalysisPage> {
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
+    
     const style = TextStyle(
       color: kHintTextColor,
       fontWeight: FontWeight.bold,
@@ -55,6 +58,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
     String analysisType = 'Daily';
     return Background(
       child: SingleChildScrollView(
@@ -66,12 +70,17 @@ class _AnalysisPageState extends State<AnalysisPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [Logo()],
             ),
-            const Text(
-              "Helo, User !",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            if (user?.displayName == null)
+            const Text("Hello User")
+          else
+            Text(
+              "Hello " + user!.displayName.toString() + ",",
+              style: const TextStyle(
+                fontSize: 16.0,
+              ),
             ),
             const Text("Track Your Progress",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
             const SizedBox(height: 40),
             const Text("Recent exercises",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
