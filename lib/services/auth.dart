@@ -3,15 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  get auth {
-    return _auth;
-  }
-
   //auth change user stream (get li2am getter)
   Stream<User?> get user {
     return _auth.authStateChanges();
   }
 
+  //stream for change in user properties (display name , email ...)
   Stream<User?> get userData {
     return _auth.userChanges();
   }
@@ -54,9 +51,6 @@ class AuthService {
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
       }
-      //create a new doc for the user with his uid
-      // await DatabaseService(uid: user!.uid)
-      //     .updateUserData('0', 'new crew member', 100);
       return user;
     } on FirebaseAuthException catch (e) {
       print(e.toString());

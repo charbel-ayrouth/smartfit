@@ -19,7 +19,6 @@ class AnalysisPage extends StatefulWidget {
 
 class _AnalysisPageState extends State<AnalysisPage> {
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    
     const style = TextStyle(
       color: kHintTextColor,
       fontWeight: FontWeight.bold,

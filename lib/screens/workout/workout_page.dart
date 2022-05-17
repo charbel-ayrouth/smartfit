@@ -3,7 +3,6 @@ import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/screens/workout/components/training_card.dart';
 import 'package:smartfit/screens/workout_progress/workout_progress.dart';
 import 'package:smartfit/shared/background.dart';
-import 'package:smartfit/shared/constants.dart';
 
 class WorkoutPage extends StatelessWidget {
   const WorkoutPage({
@@ -51,7 +50,8 @@ class WorkoutPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) => const WorkoutProgress())));
+                                builder: ((context) =>
+                                    const WorkoutProgress())));
                       },
                     ),
                     TrainingCard(
