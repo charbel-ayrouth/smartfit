@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:smartfit/models/workout_data.dart';
+import 'package:smartfit/models/workouts.dart';
 
 class DatabaseService {
   final String uid;
   DatabaseService({required this.uid});
 
-  //reference to the user data collection
+  //reference to the workout data collection (data taba3 user)
   final CollectionReference workoutDataCollection =
       FirebaseFirestore.instance.collection("workout-data");
 
-// it will run when a new account is created or when the user update his profile
+  // it will run when a new account is created or when the user update his profile
   Future updateWorkoutData(
-      int workoutDone, int workoutInProgress, double timeSpent) async {
+      List workoutDone, List workoutInProgress, double timeSpent) async {
     //link the database user using his uuid to the collection
     return await workoutDataCollection.doc(uid).set({
       "workoutDone": workoutDone,
@@ -20,23 +21,37 @@ class DatabaseService {
     });
   }
 
-  List<WorkoutData> _workoutDataList(QuerySnapshot snapshot) {
+  //workout data from snapshot
+  WorkoutData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return WorkoutData(
+      workoutDone: snapshot.get('workoutDone'),
+      workoutInProgress: snapshot.get('workoutInProgress'),
+      timeSpent: snapshot.get('timeSpent'),
+    );
+  }
+
+  //get workout data from stream (taba3 specific user mn uuid taba3o)
+  Stream<WorkoutData> get workoutData {
+    return workoutDataCollection
+        .doc(uid)
+        .snapshots()
+        .map(_userDataFromSnapshot);
+  }
+
+  // hayde part ta njib kel workouts
+  final CollectionReference workoutsCollection =
+      FirebaseFirestore.instance.collection("workouts");
+
+  List<Workouts> _workoutsListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      return WorkoutData(
-        workoutDone: doc.get('workoutDone') ?? 0,
-        workoutInProgress: doc.get('workoutInProgress') ?? 0,
-        timeSpent: doc.get('timeSpent') ?? 0,
-      );
+      return Workouts(
+          name: doc.get('name'),
+          totalMinutes: doc.get('totalMinutes'),
+          exercices: doc.get('exercices'));
     }).toList();
   }
 
-  //get WorkoutData stream
-  Stream<List<WorkoutData>> get workoutData {
-    return workoutDataCollection.snapshots().map(_workoutDataList);
-  }
-
-  //user data stream
-  Stream get userData {
-    return workoutDataCollection.doc(uid).snapshots();
+  Stream<List<Workouts>> get workoutsData {
+    return workoutsCollection.snapshots().map(_workoutsListFromSnapshot);
   }
 }

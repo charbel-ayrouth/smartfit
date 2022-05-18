@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smartfit/models/workout_data.dart';
 import 'package:smartfit/shared/constants.dart';
-
 
 class FinishedCard extends StatelessWidget {
   const FinishedCard({
@@ -9,14 +10,14 @@ class FinishedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final workoutdata = Provider.of<WorkoutData>(context);
     return Card(
       elevation: 12,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            vertical: 20.0, horizontal: 30.0),
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
         child: Column(
           children: [
             Row(
@@ -28,7 +29,9 @@ class FinishedCard extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-               SizedBox(width: 5.0,),
+                SizedBox(
+                  width: 5.0,
+                ),
                 Icon(
                   Icons.check_circle_outline,
                   size: 22.0,
@@ -37,7 +40,9 @@ class FinishedCard extends StatelessWidget {
               ],
             ),
             const Padding(
-              padding: EdgeInsets.symmetric( vertical: 21.5,),
+              padding: EdgeInsets.symmetric(
+                vertical: 21.5,
+              ),
               child: Text(
                 "12",
                 style: TextStyle(

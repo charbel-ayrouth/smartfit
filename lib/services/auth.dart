@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smartfit/services/database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -47,8 +48,10 @@ class AuthService {
         password: password,
       );
       User? user = result.user;
-      user?.updateDisplayName(username);
-      if (user != null && !user.emailVerified) {
+      //create a new doc for the user
+      await DatabaseService(uid: user!.uid).updateWorkoutData([], [], 0);
+      user.updateDisplayName(username);
+      if (!user.emailVerified) {
         await user.sendEmailVerification();
       }
       return user;
