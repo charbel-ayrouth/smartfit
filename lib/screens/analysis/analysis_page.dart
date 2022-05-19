@@ -76,7 +76,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
               children: [Logo()],
             ),
             Text(
-              "Helo, ${user!.displayName} !",
+              "Hello, ${user!.displayName} ",
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const Text("Track Your Progress",

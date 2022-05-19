@@ -10,7 +10,9 @@ class FinishedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final workoutdata = Provider.of<WorkoutData>(context);
+    final workoutdata = Provider.of<WorkoutData?>(context);
+    var finishedWorkout = workoutdata?.workoutDone.length;
+    print(finishedWorkout);
     return Card(
       elevation: 12,
       shape: RoundedRectangleBorder(

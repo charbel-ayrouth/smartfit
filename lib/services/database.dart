@@ -51,7 +51,7 @@ class DatabaseService {
     }).toList();
   }
 
-  Stream<List<Workouts>> get workoutsData {
+  Stream<List<Workouts>> get workouts {
     return workoutsCollection.snapshots().map(_workoutsListFromSnapshot);
   }
 }
