@@ -60,8 +60,10 @@ class WorkoutPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) =>
-                                      const WorkoutProgress(URL:'https://assets1.lottiefiles.com/packages/lf20_3ueg3po6.json', exerciseName:'Treadmill'))));
+                                  builder: ((context) => const WorkoutProgress(
+                                      URL:
+                                          'https://assets1.lottiefiles.com/packages/lf20_3ueg3po6.json',
+                                      exerciseName: 'Treadmill'))));
                         },
                       ),
                       TrainingCard(
@@ -71,24 +73,63 @@ class WorkoutPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) =>
-                                      const WorkoutProgress(URL:'https://assets10.lottiefiles.com/packages/lf20_TAs0Zd.json', exerciseName:'Cycling'))));
+                                  builder: ((context) => const WorkoutProgress(
+                                      URL:
+                                          'https://assets10.lottiefiles.com/packages/lf20_TAs0Zd.json',
+                                      exerciseName: 'Cycling'))));
                         },
                       ),
                       TrainingCard(
-                        workoutName: "Walking",
-                        imageUrl: 'assets/images/running.png',
-                        onPress: () {},
+                        workoutName: "Hiking",
+                        imageUrl: 'assets/images/hiking.png',
+                        onPress: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => const WorkoutProgress(
+                                      URL:
+                                          'https://assets7.lottiefiles.com/packages/lf20_bpn4s7tl.json',
+                                      exerciseName: 'Hiking'))));
+                        },
                       ),
                       TrainingCard(
-                        workoutName: "Hiking",
-                        imageUrl: 'assets/images/running.png',
-                        onPress: () {},
+                        workoutName: "squats",
+                        imageUrl: 'assets/images/squats.png',
+                        onPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => const WorkoutProgress(
+                                      URL:
+                                          'https://assets1.lottiefiles.com/packages/lf20_efL1SF.json',
+                                      exerciseName: 'Squats'))));
+                        },
+                      ),
+                      TrainingCard(
+                        workoutName: "Pushups",
+                        imageUrl: 'assets/images/pushups.png',
+                        onPress: () {
+                           Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => const WorkoutProgress(
+                                      URL:
+                                          'https://assets4.lottiefiles.com/packages/lf20_QegQCG.json',
+                                      exerciseName: 'Pushups'))));
+                        },
                       ),
                       TrainingCard(
                         workoutName: "Yoga",
                         imageUrl: 'assets/images/yoga.png',
-                        onPress: () {},
+                        onPress: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => const WorkoutProgress(
+                                      URL:
+                                          'https://assets3.lottiefiles.com/packages/lf20_kvwtrk4n.json',
+                                      exerciseName: 'Yoga'))));
+                        },
                       ),
                     ],
                   )
