@@ -32,10 +32,9 @@ class _HomePageState extends State<HomePage>
     return StreamBuilder<WorkoutData>(
         stream: DatabaseService(uid: user!.uid).workoutData,
         builder: (context, snapshot) {
-          print("prining djaflkjasfa  $snapshot");
           if (snapshot.hasData) {
             WorkoutData? personalData = snapshot.data;
-            print(personalData!.timeSpent);
+            // print(personalData!.timeSpent);
             return Background(
               child: SingleChildScrollView(
                 child: Padding(
@@ -86,7 +85,7 @@ class _HomePageState extends State<HomePage>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             FinishedCard(
-                              num: personalData.workoutDone.length,
+                              num: personalData!.workoutDone.length,
                             ),
                             Column(
                               children: [

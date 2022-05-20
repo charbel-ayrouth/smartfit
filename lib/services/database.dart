@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:smartfit/models/workout_data.dart';
-import 'package:smartfit/models/workouts.dart';
 
 class DatabaseService {
   final String uid;
@@ -32,10 +31,10 @@ class DatabaseService {
 
   //get workout data from stream (taba3 specific user mn uuid taba3o)
   Stream<WorkoutData> get workoutData {
-    var response =
-        workoutDataCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
-    print("printing response ${response.first}");
-    return response;
+    return workoutDataCollection
+        .doc(uid)
+        .snapshots()
+        .map(_userDataFromSnapshot);
   }
 
   // ------------------------------
@@ -44,20 +43,4 @@ class DatabaseService {
   }
   //--------------------
 
-  // hayde part ta njib kel workouts
-  final CollectionReference workoutsCollection =
-      FirebaseFirestore.instance.collection("workouts");
-
-  List<Workouts> _workoutsListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) {
-      return Workouts(
-          name: doc.get('name'),
-          totalMinutes: doc.get('totalMinutes'),
-          exercices: doc.get('exercices'));
-    }).toList();
-  }
-
-  Stream<List<Workouts>> get workouts {
-    return workoutsCollection.snapshots().map(_workoutsListFromSnapshot);
-  }
 }
