@@ -178,7 +178,15 @@ class _RegisterState extends State<Register> {
                             dynamic result =
                                 await _auth.registerWithEmailAndPassword(
                                     email, password, username);
-                            if (result == null ||
+                            print(result);
+                            if (result
+                                .toString()
+                                .contains("email-already-in-use")) {
+                              setState(() {
+                                error = "Email already exist";
+                                loading = false;
+                              });
+                            } else if (result == null ||
                                 result.toString().contains('Problem Occured')) {
                               setState(() {
                                 error = result.toString().substring(0, 17);

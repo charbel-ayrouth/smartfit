@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:smartfit/shared/constants.dart';
 
 class InProgressCard extends StatelessWidget {
+  final int num;
   const InProgressCard({
     Key? key,
+    required this.num,
   }) : super(key: key);
 
   @override
@@ -14,8 +16,7 @@ class InProgressCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            vertical: 15.0, horizontal: 15.0),
+        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
         child: Column(
           children: [
             Row(
@@ -35,8 +36,8 @@ class InProgressCard extends StatelessWidget {
                 ),
               ],
             ),
-            const Text(
-              "34",
+            Text(
+              num.toString(),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 23.0,
@@ -57,4 +58,3 @@ class InProgressCard extends StatelessWidget {
     );
   }
 }
-

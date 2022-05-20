@@ -8,7 +8,7 @@ class DatabaseService {
 
   //reference to the workout data collection (data taba3 user)
   final CollectionReference workoutDataCollection =
-      FirebaseFirestore.instance.collection("workout-data");
+      FirebaseFirestore.instance.collection("workoutdata");
 
   // it will run when a new account is created or when the user update his profile
   Future updateWorkoutData(
@@ -32,11 +32,17 @@ class DatabaseService {
 
   //get workout data from stream (taba3 specific user mn uuid taba3o)
   Stream<WorkoutData> get workoutData {
-    return workoutDataCollection
-        .doc(uid)
-        .snapshots()
-        .map(_userDataFromSnapshot);
+    var response =
+        workoutDataCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
+    print("printing response ${response.first}");
+    return response;
   }
+
+  // ------------------------------
+  void updateTime() async {
+    await workoutDataCollection.doc(uid).update({"timeSpent": 1});
+  }
+  //--------------------
 
   // hayde part ta njib kel workouts
   final CollectionReference workoutsCollection =
