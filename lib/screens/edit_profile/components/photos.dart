@@ -46,14 +46,14 @@ class _PhotosState extends State<Photos> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: Container(
         height: 140,
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             const Text(
               "Please choose your new profile picture",
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17.0),
             ),
-            SizedBox(height: 5.0),
+            const SizedBox(height: 5.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
