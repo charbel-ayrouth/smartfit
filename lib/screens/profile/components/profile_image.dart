@@ -17,7 +17,7 @@ class Profile extends StatelessWidget {
         ),
       );
     } else {
-      return CircleAvatar(
+      return const CircleAvatar(
         radius: 58.0,
         backgroundColor: kSecondaryOrange,
         child: CircleAvatar(

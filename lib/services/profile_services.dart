@@ -1,11 +1,10 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class ProfileServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Future updateImage(String path) async {
-    await _auth.currentUser!.updatePhotoURL(path);
-  }
 
   Future updateProfileName(String name) async {
     await _auth.currentUser!.updateDisplayName(name);
@@ -36,5 +35,18 @@ class ProfileServices {
       print(e);
       return false;
     }
+  }
+
+  Future uploadfile(String destination, File file) async {
+    final ref = FirebaseStorage.instance.ref(destination);
+    await ref.putFile(file);
+  }
+
+  Future updateProfile(String uid) async {
+    String url = await FirebaseStorage.instance
+        .ref()
+        .child("/Images/$uid")
+        .getDownloadURL();
+    await _auth.currentUser!.updatePhotoURL(url);
   }
 }

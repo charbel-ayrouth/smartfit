@@ -52,11 +52,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              RoundedButton(
-                function: () {},
-                text: "Admin Dashboard",
-                iconData: Icons.arrow_forward_ios,
-              ),
+              // RoundedButton(
+              //   function: () {},
+              //   text: "Admin Dashboard",
+              //   iconData: Icons.arrow_forward_ios,
+              // ),
               RoundedButton(
                 function: () {},
                 text: "Reminder",

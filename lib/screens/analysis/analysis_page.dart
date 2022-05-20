@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
@@ -53,9 +55,16 @@ class _AnalysisPageState extends State<AnalysisPage> {
     return Padding(child: text, padding: const EdgeInsets.only(top: 8.0));
   }
 
+  String analysisType = "Daily";
+  void setSelectedButton(String buttonName) {
+    setState(() {
+      analysisType = buttonName;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    String analysisType = 'Daily';
+    final user = Provider.of<User?>(context);
     return Background(
       child: SingleChildScrollView(
         child: Padding(
@@ -66,12 +75,12 @@ class _AnalysisPageState extends State<AnalysisPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [Logo()],
             ),
-            const Text(
-              "Helo, User !",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              "Hello, ${user!.displayName} ",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const Text("Track Your Progress",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
             const SizedBox(height: 40),
             const Text("Recent exercises",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
@@ -94,7 +103,9 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 TextButton(
                   onPressed: () {
                     analysisType = 'Daily';
-                    setState(() {});
+                    setState(() {
+                      setSelectedButton("Daily");
+                    });
                   },
                   child: Text(
                     "Daily",
@@ -117,7 +128,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      analysisType = 'Weekly';
+                      setSelectedButton("Weekly");
                     });
                   },
                   child: Text(
@@ -141,7 +152,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      analysisType = 'Monthly';
+                      setSelectedButton("Monthly");
                     });
                   },
                   child: Text(
@@ -165,7 +176,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      analysisType = 'Yearly';
+                      setSelectedButton("Yearly");
                     });
                   },
                   child: Text(

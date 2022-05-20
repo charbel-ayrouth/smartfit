@@ -5,10 +5,12 @@ class TrainingCard extends StatelessWidget {
   final String workoutName;
   final String imageUrl;
   final void Function()? onPress;
-  TrainingCard(
-      {required this.workoutName,
+  const TrainingCard(
+      {Key? key,
+      required this.workoutName,
       required this.imageUrl,
-      required this.onPress});
+      required this.onPress})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,8 @@ class TrainingCard extends StatelessWidget {
             children: [
               Image.asset(
                 imageUrl,
-                width: 100,
-                height: 100,
+                width: 80,
+                height: 80,
               ),
               Text(
                 workoutName,
