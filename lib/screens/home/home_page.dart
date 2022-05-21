@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smartfit/models/workout_data.dart';
+import 'package:smartfit/models/workouts.dart';
 import 'package:smartfit/screens/home/components/InProgress_card.dart';
 import 'package:smartfit/screens/home/components/home_card.dart';
 import 'package:smartfit/screens/home/components/progress_card.dart';
 import 'package:smartfit/screens/home/components/time_card.dart';
 import 'package:smartfit/services/database.dart';
+import 'package:smartfit/services/workouts_services.dart';
 import 'package:smartfit/shared/loading.dart';
 import '../../shared/background.dart';
 import '../profile/components/logo.dart';
@@ -107,17 +109,30 @@ class _HomePageState extends State<HomePage>
                               fontSize: 20.0,
                             )),
                         const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            HomeCard(
-                              ImageUrl: 'assets/images/arms.png',
-                            ),
-                            HomeCard(
-                              ImageUrl: 'assets/images/cardio.png',
-                            ),
-                          ],
-                        ),
+                        StreamBuilder<List<Workouts>>(
+                            stream: WorkoutsServices().workouts,
+                            builder: (context, snapshot) {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: snapshot.data!
+                                    .map((e) => HomeCard(
+                                          ImageUrl:
+                                              'assets/images/${e.imageName}',
+                                          exercices: e.exercices.length,
+                                          minutes: e.totalMinutes,
+                                        ))
+                                    .toList(),
+                                // children: const [
+                                //   HomeCard(
+                                //     ImageUrl: 'assets/images/arms.png',
+                                //   ),
+                                //   HomeCard(
+                                //     ImageUrl: 'assets/images/cardio.png',
+                                //   ),
+                                // ],
+                              );
+                            }),
                         const SizedBox(
                           height: 20,
                         ),

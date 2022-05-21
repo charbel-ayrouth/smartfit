@@ -53,21 +53,24 @@ class WorkoutPage extends StatelessWidget {
                       if (!snapshot.hasData) {
                         return const Text("There is no workouts");
                       } else {
-                        return Row(
+                        return Wrap(
+                            spacing: 20,
+                            runSpacing: 15,
                             children: snapshot.data!
                                 .map((e) => (TrainingCard(
                                       workoutName: e.name,
                                       imageUrl: 'assets/images/${e.imageName}',
                                       onPress: () {
                                         Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: ((context) =>
-                                                    const WorkoutProgress(
-                                                        URL:
-                                                            'https://assets1.lottiefiles.com/packages/lf20_3ueg3po6.json',
-                                                        exerciseName:
-                                                            'Treadmill'))));
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: ((context) =>
+                                                const WorkoutProgress(
+                                                    URL:
+                                                        'https://assets1.lottiefiles.com/packages/lf20_3ueg3po6.json',
+                                                    exerciseName: 'Treadmill')),
+                                          ),
+                                        );
                                       },
                                     )))
                                 .toList());
