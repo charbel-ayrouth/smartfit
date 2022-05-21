@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smartfit/models/workouts.dart';
+import 'package:smartfit/screens/home/components/home_card.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
@@ -135,6 +137,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
+    final workouts = Provider.of<List<Workouts>>(context);
     return StreamBuilder<WorkoutData>(
         stream: DatabaseService(uid: user!.uid).workoutData,
         builder: (context, snapshot) {
@@ -164,13 +167,18 @@ class _AnalysisPageState extends State<AnalysisPage> {
                               fontSize: 18, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 30),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          ExerciseCard(
-                            ImageUrl: 'assets/images/arms.png',
+                        children: [
+                          HomeCard(
+                            imageUrl: 'assets/images/${workouts[0].imageName}',
+                            exercices: workouts[0].exercices.length,
+                            minutes: workouts[0].totalMinutes,
+                            name: workouts[0].name,
                           ),
-                          ExerciseCard(
-                            ImageUrl: 'assets/images/cardio.png',
+                          HomeCard(
+                            imageUrl: 'assets/images/${workouts[1].imageName}',
+                            exercices: workouts[1].exercices.length,
+                            minutes: workouts[1].totalMinutes,
+                            name: workouts[1].name,
                           ),
                         ],
                       ),

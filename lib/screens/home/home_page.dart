@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage>
 
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
+    final workouts = Provider.of<List<Workouts>>(context);
     return StreamBuilder<WorkoutData>(
         stream: DatabaseService(uid: user!.uid).workoutData,
         builder: (context, snapshot) {
@@ -109,30 +110,24 @@ class _HomePageState extends State<HomePage>
                               fontSize: 20.0,
                             )),
                         const SizedBox(height: 20),
-                        StreamBuilder<List<Workouts>>(
-                            stream: WorkoutsServices().workouts,
-                            builder: (context, snapshot) {
-                              return Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: snapshot.data!
-                                    .map((e) => HomeCard(
-                                          ImageUrl:
-                                              'assets/images/${e.imageName}',
-                                          exercices: e.exercices.length,
-                                          minutes: e.totalMinutes,
-                                        ))
-                                    .toList(),
-                                // children: const [
-                                //   HomeCard(
-                                //     ImageUrl: 'assets/images/arms.png',
-                                //   ),
-                                //   HomeCard(
-                                //     ImageUrl: 'assets/images/cardio.png',
-                                //   ),
-                                // ],
-                              );
-                            }),
+                        Row(
+                          children: [
+                            HomeCard(
+                              imageUrl:
+                                  'assets/images/${workouts[0].imageName}',
+                              exercices: workouts[0].exercices.length,
+                              minutes: workouts[0].totalMinutes,
+                              name: workouts[0].name,
+                            ),
+                            HomeCard(
+                              imageUrl:
+                                  'assets/images/${workouts[1].imageName}',
+                              exercices: workouts[1].exercices.length,
+                              minutes: workouts[1].totalMinutes,
+                              name: workouts[1].name,
+                            ),
+                          ],
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
