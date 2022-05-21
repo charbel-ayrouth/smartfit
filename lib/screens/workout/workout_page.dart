@@ -1,13 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:smartfit/models/workouts.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
-import 'package:smartfit/screens/workout_progress/workout_progress.dart';
+import 'package:smartfit/screens/workout_exercices/workout_exercices_page.dart';
 import 'package:smartfit/services/workouts_services.dart';
 import 'package:smartfit/shared/background.dart';
-
 import 'components/training_card.dart';
 
 class WorkoutPage extends StatelessWidget {
@@ -17,9 +13,6 @@ class WorkoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
-    final user = Provider.of<User?>(context);
-
     return Background(
       child: SafeArea(
         child: Padding(
@@ -65,10 +58,7 @@ class WorkoutPage extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                             builder: ((context) =>
-                                                const WorkoutProgress(
-                                                    URL:
-                                                        'https://assets1.lottiefiles.com/packages/lf20_3ueg3po6.json',
-                                                    exerciseName: 'Treadmill')),
+                                                WorkoutExercices(workout: e)),
                                           ),
                                         );
                                       },

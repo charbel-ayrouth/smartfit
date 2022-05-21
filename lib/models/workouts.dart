@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Workouts {
   final String name;
   final num totalMinutes;

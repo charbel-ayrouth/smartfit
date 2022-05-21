@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage>
 
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
-    final workouts = Provider.of<List<Workouts>>(context);
+    final workouts = Provider.of<List<Workouts>?>(context);
     return StreamBuilder<WorkoutData>(
         stream: DatabaseService(uid: user!.uid).workoutData,
         builder: (context, snapshot) {
@@ -114,17 +114,23 @@ class _HomePageState extends State<HomePage>
                           children: [
                             HomeCard(
                               imageUrl:
-                                  'assets/images/${workouts[0].imageName}',
-                              exercices: workouts[0].exercices.length,
-                              minutes: workouts[0].totalMinutes,
-                              name: workouts[0].name,
+                                  'assets/images/${workouts![workouts.length - 2].imageName}',
+                              exercices: workouts[workouts.length - 2]
+                                  .exercices
+                                  .length,
+                              minutes:
+                                  workouts[workouts.length - 2].totalMinutes,
+                              name: workouts[workouts.length - 2].name,
                             ),
                             HomeCard(
                               imageUrl:
-                                  'assets/images/${workouts[1].imageName}',
-                              exercices: workouts[1].exercices.length,
-                              minutes: workouts[1].totalMinutes,
-                              name: workouts[1].name,
+                                  'assets/images/${workouts[workouts.length - 1].imageName}',
+                              exercices: workouts[workouts.length - 1]
+                                  .exercices
+                                  .length,
+                              minutes:
+                                  workouts[workouts.length - 1].totalMinutes,
+                              name: workouts[workouts.length - 1].name,
                             ),
                           ],
                         ),
