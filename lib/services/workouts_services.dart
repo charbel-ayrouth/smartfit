@@ -8,15 +8,20 @@ class WorkoutsServices {
   List<Workouts> _workoutsListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Workouts(
-        name: doc.get('name'),
-        totalMinutes: doc.get('totalMinutes'),
-        exercices: doc.get('exercices'),
-        imageName: doc.get("imageName"),
+        name: doc.get('name') ?? '',
+        totalMinutes: doc.get('totalMinutes') ?? 0,
+        exercices: doc.get('exercices') ??
+            [
+              {'URL': '', 'avergeCalories': 0, 'duration': 0, 'name': ''}
+            ],
+        imageName: doc.get("imageName") ?? '',
       );
     }).toList();
   }
 
   Stream<List<Workouts>> get workouts {
-    return workoutsCollection.snapshots().map(_workoutsListFromSnapshot);
+    var res = workoutsCollection.snapshots().map(_workoutsListFromSnapshot);
+    print(" aekjfalkdj flakj fladjflas $res");
+    return res;
   }
 }

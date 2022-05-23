@@ -26,118 +26,116 @@ class WorkoutProgress extends StatelessWidget {
     // final workouts = Provider.of<Workouts>(context);
     return Scaffold(
       body: Background(
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 7),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(
-                          Icons.arrow_back_ios,
-                          color: kPrimaryColor,
-                        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 7),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: kPrimaryColor,
                       ),
-                      Logo(),
-                    ],
-                  ),
+                    ),
+                    Logo(),
+                  ],
                 ),
-                const SizedBox(height: 50),
-                Text(
-                  exerciseName,
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w400,
-                  ),
+              ),
+              const SizedBox(height: 50),
+              Text(
+                exerciseName,
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w400,
                 ),
-                const SizedBox(height: 30),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Schedule",
-                        style: TextStyle(
+              ),
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Schedule",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
+                          color: Colors.black,
                         ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                          ),
-                          children: [
-                            TextSpan(text: cdate2),
-                            const WidgetSpan(
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child: Icon(
-                                  Icons.calendar_month,
-                                ),
+                        children: [
+                          TextSpan(text: cdate2),
+                          const WidgetSpan(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 5),
+                              child: Icon(
+                                Icons.calendar_month,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 18.0, horizontal: 18.0),
-                  child: Row(
-                    children: const [
-                      Text(
-                        "Your Progress",
-                        style: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+              ),
+              const SizedBox(height: 10.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 18.0, horizontal: 18.0),
+                child: Row(
+                  children: const [
+                    Text(
+                      "Your Progress",
+                      style: TextStyle(
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold,
                       ),
-                      Icon(
-                        Icons.timer_outlined,
-                        size: 24.0,
-                        color: kPrimaryColor,
-                      )
-                    ],
-                  ),
-                ),
-                Custom_Timer(controller: _controller),
-                SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    RoundedButton(
-                      text: "Start",
-                      color: kPrimaryColor,
-                      onPressed: () =>
-                          {dataRef.updateTime(), _controller.start()},
                     ),
-                    RoundedButton(
-                      text: "Pause",
-                      color: Colors.amber,
-                      onPressed: () => _controller.pause(),
-                    ),
-                    RoundedButton(
-                      text: "Reset",
+                    Icon(
+                      Icons.timer_outlined,
+                      size: 24.0,
                       color: kPrimaryColor,
-                      onPressed: () => _controller.reset(),
                     )
                   ],
                 ),
-                Lottie.network(URL, height: 300.0, width: 300.0),
-              ],
-            ),
+              ),
+              Custom_Timer(controller: _controller),
+              SizedBox(height: 10.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  RoundedButton(
+                    text: "Start",
+                    color: kPrimaryColor,
+                    onPressed: () =>
+                        {dataRef.updateTime(), _controller.start()},
+                  ),
+                  RoundedButton(
+                    text: "Pause",
+                    color: Colors.amber,
+                    onPressed: () => _controller.pause(),
+                  ),
+                  RoundedButton(
+                    text: "Reset",
+                    color: kPrimaryColor,
+                    onPressed: () => _controller.reset(),
+                  )
+                ],
+              ),
+              Lottie.network(URL, height: 300.0, width: 300.0),
+            ],
           ),
         ),
       ),

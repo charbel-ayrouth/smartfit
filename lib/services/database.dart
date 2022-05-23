@@ -23,9 +23,9 @@ class DatabaseService {
   //workout data from snapshot
   WorkoutData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return WorkoutData(
-      workoutDone: snapshot.get('workoutDone'),
-      workoutInProgress: snapshot.get('workoutInProgress'),
-      timeSpent: snapshot.get('timeSpent'),
+      workoutDone: snapshot.get('workoutDone') ?? [],
+      workoutInProgress: snapshot.get('workoutInProgress') ?? [],
+      timeSpent: snapshot.get('timeSpent') ?? 0,
     );
   }
 
