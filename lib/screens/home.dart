@@ -2,6 +2,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smartfit/models/workouts.dart';
 import 'package:smartfit/services/auth.dart';
 import 'package:smartfit/services/workouts_services.dart';
 import 'package:smartfit/shared/constants.dart';
@@ -27,9 +28,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider(
+    return StreamProvider<List<Workouts>>(
       create: (_) => WorkoutsServices().workouts,
-      initialData: null,
+      initialData: [],
+      // catchError: (_, __) {},
       child: Scaffold(
         // to keep the widget alive not destroyed when we switch to another page
         body: IndexedStack(

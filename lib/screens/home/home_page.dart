@@ -120,8 +120,7 @@ class _HomePageState extends State<HomePage>
                                   .length,
                               minutes:
                                   workouts[workouts.length - 2].totalMinutes,
-                              // name: workouts[workouts.length - 2].name,
-                              name: workouts.length.toString(),
+                              name: workouts[workouts.length - 2].name,
                             ),
                             HomeCard(
                               imageUrl:
