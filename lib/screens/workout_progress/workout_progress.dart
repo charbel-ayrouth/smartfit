@@ -1,27 +1,36 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/screens/workout_progress/components/rounded_button.dart';
 import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:custom_timer/custom_timer.dart';
+import '../../services/database.dart';
 import 'components/custom_timer.dart';
 import 'package:lottie/lottie.dart';
 
-class WorkoutProgress extends StatelessWidget {
-  final String URL;
-  final String exerciseName;
-  const WorkoutProgress({required this.URL, required this.exerciseName});
+class WorkoutProgress extends StatefulWidget {
+  final List exercises;
+  final int index;
+  const WorkoutProgress({required this.exercises, required this.index});
 
+  @override
+  State<WorkoutProgress> createState() => _WorkoutProgressState();
+}
+
+class _WorkoutProgressState extends State<WorkoutProgress> {
   @override
   Widget build(BuildContext context) {
     String cdate2 = DateFormat("MMMM dd").format(DateTime.now());
     final CustomTimerController _controller = CustomTimerController();
+    final user = Provider.of<User?>(context);
+    DatabaseService dataRef = DatabaseService(uid: user!.uid);
 
-    // final workouts = Provider.of<Workouts>(context);
     return Scaffold(
       body: Background(
-        child: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               const SizedBox(height: 7),
@@ -41,9 +50,9 @@ class WorkoutProgress extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
               Text(
-                exerciseName,
+                widget.exercises[widget.index]['name'],
                 style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w400,
@@ -56,7 +65,7 @@ class WorkoutProgress extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Schedule",
+                      "Date",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -92,7 +101,7 @@ class WorkoutProgress extends StatelessWidget {
                 child: Row(
                   children: const [
                     Text(
-                      "Your Progress",
+                      "Stopwatch",
                       style: TextStyle(
                         fontSize: 22.0,
                         fontWeight: FontWeight.bold,
@@ -106,7 +115,10 @@ class WorkoutProgress extends StatelessWidget {
                   ],
                 ),
               ),
-              Custom_Timer(controller: _controller),
+              Custom_Timer(
+                controller: _controller,
+                duration: widget.exercises[widget.index]['duration'],
+              ),
               const SizedBox(height: 10.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -117,18 +129,17 @@ class WorkoutProgress extends StatelessWidget {
                     onPressed: () => _controller.start(),
                   ),
                   RoundedButton(
-                    text: "Pause",
+                    text: _controller.state.toString() ==
+                            "CustomTimerState.paused"
+                        ? "Resume"
+                        : "Pause",
                     color: Colors.amber,
-                    onPressed: () => _controller.pause(),
+                    onPressed: () => {_controller.pause()},
                   ),
-                  RoundedButton(
-                    text: "Reset",
-                    color: kPrimaryColor,
-                    onPressed: () => _controller.reset(),
-                  )
                 ],
               ),
-              Lottie.network(URL, height: 300.0, width: 300.0),
+              Lottie.network(widget.exercises[widget.index]['URL'],
+                  height: 300.0, width: 300.0),
             ],
           ),
         ),

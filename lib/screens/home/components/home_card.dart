@@ -1,9 +1,17 @@
-
 import 'package:flutter/material.dart';
 
 class HomeCard extends StatelessWidget {
-  final String ImageUrl;
-  const HomeCard({Key? key, required this.ImageUrl}) : super(key: key);
+  final String imageUrl;
+  final int exercices;
+  final num minutes;
+  final String name;
+  const HomeCard({
+    Key? key,
+    required this.imageUrl,
+    required this.exercices,
+    required this.minutes,
+    required this.name,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +30,21 @@ class HomeCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text("Cardio",
+                children: [
+                  Text(name,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 14.0,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       )),
-                  Text("10 exercises",
-                      style: TextStyle(
+                  Text("$exercices exercises",
+                      style: const TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       )),
-                  Text("50 Minutes",
-                      style: TextStyle(
+                  Text("$minutes Minutes",
+                      style: const TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -45,7 +53,7 @@ class HomeCard extends StatelessWidget {
               ),
             ),
             Image.asset(
-              ImageUrl,
+              imageUrl,
               height: 80,
               width: 95.0,
             ),

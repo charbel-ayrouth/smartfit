@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:smartfit/models/workout_data.dart';
 import 'package:smartfit/shared/constants.dart';
 
 class FinishedCard extends StatelessWidget {
+  final int num;
   const FinishedCard({
     Key? key,
+    required this.num,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final workoutdata = Provider.of<WorkoutData?>(context);
-    var finishedWorkout = workoutdata?.workoutDone.length;
-    print(finishedWorkout);
+    // final data = Provider.of<WorkoutData>(context);
+    // print(data);
     return Card(
       elevation: 12,
       shape: RoundedRectangleBorder(
@@ -41,12 +40,12 @@ class FinishedCard extends StatelessWidget {
                 ),
               ],
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(
                 vertical: 21.5,
               ),
               child: Text(
-                "12",
+                num.toString(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 50.0,
