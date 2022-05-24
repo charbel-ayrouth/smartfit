@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/MyFlutterApp.ttf
 ///
-/// 
+///
 /// * Modern Pictograms, Copyright (c) 2012 by John Caserta. All rights reserved.
 ///         Author:    John Caserta
 ///         License:   SIL (http://scripts.sil.org/OFL)
@@ -37,8 +37,14 @@ class MyFlutterApp {
   static const _kFontFam = 'MyFlutterApp';
   static const String? _kFontPkg = null;
 
-  static const IconData chart_bar = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData home_outline = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData user = IconData(0xf007, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData zap = IconData(0xf3be, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  // ignore: constant_identifier_names
+  static const IconData chart_bar =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  // ignore: constant_identifier_names
+  static const IconData home_outline =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData user =
+      IconData(0xf007, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData zap =
+      IconData(0xf3be, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

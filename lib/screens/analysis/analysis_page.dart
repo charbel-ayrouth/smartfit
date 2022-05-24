@@ -11,7 +11,6 @@ import 'package:smartfit/shared/loading.dart';
 
 import '../../models/workout_data.dart';
 import '../../services/database.dart';
-import 'components/exercise_card.dart';
 
 class AnalysisPage extends StatefulWidget {
   const AnalysisPage({
@@ -25,12 +24,11 @@ class AnalysisPage extends StatefulWidget {
 class _AnalysisPageState extends State<AnalysisPage> {
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: kHintTextColor,
+      color: Colors.black,
       fontWeight: FontWeight.bold,
       fontSize: 12,
     );
     Widget text;
-
     if (analysisType == "Daily") {
       switch (value.toInt()) {
         case 0:
@@ -124,9 +122,41 @@ class _AnalysisPageState extends State<AnalysisPage> {
 
   String analysisType = "Daily";
 
-  // Function getSpot(analysisType){
-
-  // }
+  List<FlSpot> getSpot(analysisType) {
+    if (analysisType == "Daily") {
+      return [
+        const FlSpot(0, 4),
+        const FlSpot(1, 4),
+        const FlSpot(2, 4),
+        const FlSpot(3, 4),
+        const FlSpot(4, 4),
+        const FlSpot(5, 4),
+        const FlSpot(6, 4),
+      ];
+    } else if (analysisType == "Monthly") {
+      return [
+        const FlSpot(0, 4),
+        const FlSpot(1, 4),
+        const FlSpot(2, 4),
+        const FlSpot(3, 4),
+        const FlSpot(4, 4),
+        const FlSpot(5, 4),
+        const FlSpot(6, 4),
+        const FlSpot(7, 4),
+        const FlSpot(8, 4),
+        const FlSpot(9, 4),
+        const FlSpot(10, 4),
+        const FlSpot(11, 4),
+      ];
+    } else {
+      return [
+        const FlSpot(0, 4),
+        const FlSpot(1, 4),
+        const FlSpot(2, 4),
+        const FlSpot(3, 4),
+      ];
+    }
+  }
 
   void setSelectedButton(String buttonName) {
     setState(() {
@@ -141,6 +171,10 @@ class _AnalysisPageState extends State<AnalysisPage> {
     return StreamBuilder<WorkoutData>(
         stream: DatabaseService(uid: user!.uid).workoutData,
         builder: (context, snapshot) {
+          const gradientColors = [
+            Color(0x00ff7000),
+            Color(0x00ffffff),
+          ];
           return Background(
             child: SingleChildScrollView(
               child: Padding(
@@ -265,50 +299,90 @@ class _AnalysisPageState extends State<AnalysisPage> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      SizedBox(
-                        height: 93,
-                        child: snapshot.hasData
-                            ? LineChart(LineChartData(
-                                minX: 0,
-                                minY: 0,
-                                gridData: FlGridData(
-                                  show: false,
-                                ),
-                                borderData: FlBorderData(
-                                  show: false,
-                                ),
-                                titlesData: FlTitlesData(
-                                  show: true,
-                                  rightTitles: null,
-                                  topTitles: null,
-                                  leftTitles: null,
-                                  bottomTitles: AxisTitles(
-                                    sideTitles: SideTitles(
-                                      showTitles: true,
-                                      reservedSize: 30,
-                                      getTitlesWidget: bottomTitleWidgets,
-                                      interval: 1,
-                                    ),
+                      Card(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        elevation: 14,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 10),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                const Text(
+                                  'Time Spent',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
                                   ),
                                 ),
-                                lineBarsData: [
-                                  LineChartBarData(
-                                    spots: [
-                                      const FlSpot(0, 4),
-                                      const FlSpot(1, 4),
-                                      const FlSpot(2, 4),
-                                      const FlSpot(3, 4),
-                                      const FlSpot(4, 4),
-                                      const FlSpot(5, 4),
-                                      const FlSpot(6, 4),
-                                    ],
-                                    isCurved: true,
-                                    color: kPrimaryColor,
-                                    barWidth: 4,
-                                  )
-                                ],
-                              ))
-                            : Loading(),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  height: 100,
+                                  width:
+                                      0.8 * MediaQuery.of(context).size.width,
+                                  child: snapshot.hasData
+                                      ? LineChart(LineChartData(
+                                          minX: 0,
+                                          minY: 0,
+                                          gridData: FlGridData(
+                                            show: false,
+                                          ),
+                                          borderData: FlBorderData(
+                                            show: false,
+                                          ),
+                                          titlesData: FlTitlesData(
+                                            show: true,
+                                            rightTitles: AxisTitles(
+                                              sideTitles:
+                                                  SideTitles(showTitles: false),
+                                            ),
+                                            topTitles: AxisTitles(
+                                                sideTitles: SideTitles(
+                                                    showTitles: false)),
+                                            leftTitles: AxisTitles(
+                                              sideTitles:
+                                                  SideTitles(showTitles: false),
+                                            ),
+                                            bottomTitles: AxisTitles(
+                                              sideTitles: SideTitles(
+                                                showTitles: true,
+                                                getTitlesWidget:
+                                                    bottomTitleWidgets,
+                                                interval: 1,
+                                              ),
+                                            ),
+                                          ),
+                                          lineBarsData: [
+                                            LineChartBarData(
+                                              spots: getSpot(analysisType),
+                                              isCurved: true,
+                                              color: kPrimaryColor,
+                                              barWidth: 4,
+                                              belowBarData: BarAreaData(
+                                                  show: true,
+                                                  gradient: LinearGradient(
+                                                      colors: gradientColors
+                                                          .map((color) => color
+                                                              .withOpacity(0.7))
+                                                          .toList(),
+                                                      begin:
+                                                          Alignment.topCenter,
+                                                      end: Alignment
+                                                          .bottomCenter)),
+                                            )
+                                          ],
+                                        ))
+                                      : Loading(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
                     ]),
               ),
