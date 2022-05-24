@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/screens/workout_progress/components/rounded_button.dart';
 import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:custom_timer/custom_timer.dart';
-import '../../models/workouts.dart';
 import 'components/custom_timer.dart';
 import 'package:lottie/lottie.dart';
 
 class WorkoutProgress extends StatelessWidget {
   final String URL;
   final String exerciseName;
-  const WorkoutProgress({required this.URL, required this.exerciseName}) ;
+  const WorkoutProgress({required this.URL, required this.exerciseName});
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +42,9 @@ class WorkoutProgress extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 50),
-               Text(
+              Text(
                 exerciseName,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w400,
                 ),
@@ -109,7 +107,7 @@ class WorkoutProgress extends StatelessWidget {
                 ),
               ),
               Custom_Timer(controller: _controller),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -130,10 +128,7 @@ class WorkoutProgress extends StatelessWidget {
                   )
                 ],
               ),
-              Lottie.network(
-                  URL,
-                  height: 300.0,
-                  width: 300.0),
+              Lottie.network(URL, height: 300.0, width: 300.0),
             ],
           ),
         ),
