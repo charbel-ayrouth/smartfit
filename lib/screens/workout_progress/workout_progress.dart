@@ -7,23 +7,22 @@ import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:custom_timer/custom_timer.dart';
-import '../../models/workouts.dart';
 import '../../services/database.dart';
 import 'components/custom_timer.dart';
 import 'package:lottie/lottie.dart';
 
 class WorkoutProgress extends StatelessWidget {
-  final String URL;
-  final String exerciseName;
-  const WorkoutProgress({required this.URL, required this.exerciseName});
+  final List exercises;
+  final int index;
+  const WorkoutProgress({required this.exercises, required this.index});
 
   @override
   Widget build(BuildContext context) {
     String cdate2 = DateFormat("MMMM dd").format(DateTime.now());
     final CustomTimerController _controller = CustomTimerController();
     final user = Provider.of<User?>(context);
-    var dataRef = DatabaseService(uid: user!.uid);
-    // final workouts = Provider.of<Workouts>(context);
+    DatabaseService dataRef = DatabaseService(uid: user!.uid);
+    ;
     return Scaffold(
       body: Background(
         child: SingleChildScrollView(
@@ -46,10 +45,10 @@ class WorkoutProgress extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
               Text(
-                exerciseName,
-                style: TextStyle(
+                exercises[index]['name'],
+                style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w400,
                 ),
@@ -61,7 +60,7 @@ class WorkoutProgress extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Schedule",
+                      "Date",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -97,7 +96,7 @@ class WorkoutProgress extends StatelessWidget {
                 child: Row(
                   children: const [
                     Text(
-                      "Your Progress",
+                      "Stopwatch",
                       style: TextStyle(
                         fontSize: 22.0,
                         fontWeight: FontWeight.bold,
@@ -112,7 +111,7 @@ class WorkoutProgress extends StatelessWidget {
                 ),
               ),
               Custom_Timer(controller: _controller),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -134,7 +133,8 @@ class WorkoutProgress extends StatelessWidget {
                   )
                 ],
               ),
-              Lottie.network(URL, height: 300.0, width: 300.0),
+              Lottie.network(exercises[index]['URL'],
+                  height: 300.0, width: 300.0),
             ],
           ),
         ),

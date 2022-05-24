@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartfit/models/workouts.dart';
+import 'package:smartfit/screens/workout_progress/page_view.dart';
 import 'package:smartfit/screens/workout_progress/workout_progress.dart';
 import 'package:smartfit/shared/constants.dart';
 
@@ -9,7 +10,6 @@ class WorkoutExercices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int ExercisesLength = workout.exercices.length;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kGrey,
@@ -36,12 +36,8 @@ class WorkoutExercices extends StatelessWidget {
                     onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => WorkoutProgress(
-                                URL: workout.exercices[index - ExercisesLength]
-                                    ['URL'],
-                                exerciseName:
-                                    workout.exercices[index - ExercisesLength]
-                                        ['name']),
+                            builder: (context) =>
+                                PageViewHolder(exercises: workout.exercices),
                           ),
                         ),
                     child: const Text("Start Workout"));
