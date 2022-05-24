@@ -9,6 +9,7 @@ class WorkoutExercices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int ExercisesLength = workout.exercices.length;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kGrey,
@@ -18,31 +19,33 @@ class WorkoutExercices extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
           child: ListView.builder(
-            itemCount: workout.exercices.length,
-            itemBuilder: (BuildContext context, int index) {
-              // return Text('exercice ${workout.exercices[index]}');
-              // List info = workout.exercices[index];
-              return GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WorkoutProgress(
-                        URL:
-                            "https://assets1.lottiefiles.com/packages/lf20_3ueg3po6.json",
-                        exerciseName: workout.exercices[index]['name']),
-                  ),
-                ),
-                child: Card(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: ListTile(
-                    title: Text("${workout.exercices[index]['name']}"),
-                    subtitle: Text(
-                        "duration: ${workout.exercices[index]['duration']}, average calories burned: ${workout.exercices[index]['averageCalories']}"),
-                  ),
-                ),
-              );
-            },
-          ),
+              itemCount: workout.exercices.length + 1,
+              itemBuilder: (BuildContext context, int index) {
+                // checking if the index item is the last item of the list or not
+                if (index < workout.exercices.length) {
+                  return Card(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: ListTile(
+                      title: Text("${workout.exercices[index]['name']}"),
+                      subtitle: Text(
+                          "duration: ${workout.exercices[index]['duration']}, average calories burned: ${workout.exercices[index]['averageCalories']}"),
+                    ),
+                  );
+                }
+                return TextButton(
+                    onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WorkoutProgress(
+                                URL: workout.exercices[index - ExercisesLength]
+                                    ['URL'],
+                                exerciseName:
+                                    workout.exercices[index - ExercisesLength]
+                                        ['name']),
+                          ),
+                        ),
+                    child: const Text("Start Workout"));
+              }),
         ),
       ),
     );

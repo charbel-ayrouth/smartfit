@@ -43,9 +43,8 @@ class WorkoutPage extends StatelessWidget {
               StreamBuilder<List<Workouts>>(
                   stream: WorkoutsServices().workouts,
                   builder: ((context, snapshot) {
-                    print("snpashot $snapshot");
                     if (snapshot.hasError) {
-                      return Text("Error");
+                      return const Text("Error");
                     } else if (snapshot.connectionState ==
                         ConnectionState.waiting) {
                       return Loading();
