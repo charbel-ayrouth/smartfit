@@ -30,7 +30,7 @@ class DatabaseService {
   }
 
   //get workout data from stream (taba3 specific user mn uuid taba3o)
-  Stream<WorkoutData> get workoutData {
+  Stream<WorkoutData>? get workoutData {
     return workoutDataCollection
         .doc(uid)
         .snapshots()
@@ -38,8 +38,10 @@ class DatabaseService {
   }
 
   // ------------------------------
-  void updateTime() async {
-    await workoutDataCollection.doc(uid).update({"timeSpent": 1});
+  void updateTime(num oldTime, num newTime) async {
+    await workoutDataCollection
+        .doc(uid)
+        .update({"timeSpent": oldTime + newTime});
   }
   //--------------------
 

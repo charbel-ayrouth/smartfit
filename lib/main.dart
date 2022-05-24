@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         StreamProvider(create: (_) => AuthService().user, initialData: null),
-        StreamProvider(create: (_) => AuthService().userData, initialData: null)
+        StreamProvider(
+            create: (_) => AuthService().userData, initialData: null),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

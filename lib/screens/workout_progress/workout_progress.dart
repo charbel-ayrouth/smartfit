@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smartfit/models/workout_data.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/screens/workout_progress/components/rounded_button.dart';
 import 'package:smartfit/shared/background.dart';
@@ -21,10 +22,25 @@ class WorkoutProgress extends StatefulWidget {
 }
 
 class _WorkoutProgressState extends State<WorkoutProgress> {
+  final CustomTimerController _controller = CustomTimerController();
+  String buttonText = "Start";
+
+  // @override
+  // void dispose() {
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
+
+  void handleButton(String text) {
+    setState(() {
+      buttonText = text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     String cdate2 = DateFormat("MMMM dd").format(DateTime.now());
-    final CustomTimerController _controller = CustomTimerController();
+
     final user = Provider.of<User?>(context);
     DatabaseService dataRef = DatabaseService(uid: user!.uid);
 
@@ -124,18 +140,22 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   RoundedButton(
-                    text: "Start",
+                    text: buttonText,
                     color: kPrimaryColor,
-                    onPressed: () => _controller.start(),
+                    onPressed: () => {
+                      _controller.start(),
+                      print("start ${_controller.state}"),
+                      handleButton("Start")
+                    },
                   ),
                   RoundedButton(
-                    text: _controller.state.toString() ==
-                            "CustomTimerState.paused"
-                        ? "Resume"
-                        : "Pause",
-                    color: Colors.amber,
-                    onPressed: () => {_controller.pause()},
-                  ),
+                      text: "Pause",
+                      color: Colors.amber,
+                      onPressed: () => {
+                            _controller.pause(),
+                            print("Pause ${_controller.state}"),
+                            handleButton("Resume")
+                          }),
                 ],
               ),
               Lottie.network(widget.exercises[widget.index]['URL'],

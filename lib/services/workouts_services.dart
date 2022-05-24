@@ -20,8 +20,6 @@ class WorkoutsServices {
   }
 
   Stream<List<Workouts>> get workouts {
-    var res = workoutsCollection.snapshots().map(_workoutsListFromSnapshot);
-    print(" aekjfalkdj flakj fladjflas $res");
-    return res;
+    return workoutsCollection.snapshots().map(_workoutsListFromSnapshot);
   }
 }

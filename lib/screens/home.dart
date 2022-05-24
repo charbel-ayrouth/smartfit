@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: prefer_const_literals_to_create_immutables
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smartfit/models/workout_data.dart';
 import 'package:smartfit/models/workouts.dart';
 import 'package:smartfit/services/auth.dart';
+import 'package:smartfit/services/database.dart';
 import 'package:smartfit/services/workouts_services.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'analysis/analysis_page.dart';
@@ -28,9 +31,16 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<Workouts>>(
-      create: (_) => WorkoutsServices().workouts,
-      initialData: [],
+    final user = Provider.of<User?>(context);
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Workouts>>(
+            create: (_) => WorkoutsServices().workouts, initialData: []),
+        StreamProvider<WorkoutData?>(
+          create: (_) => DatabaseService(uid: user!.uid).workoutData,
+          initialData: null,
+        )
+      ],
       // catchError: (_, __) {},
       child: Scaffold(
         // to keep the widget alive not destroyed when we switch to another page
