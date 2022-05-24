@@ -1,5 +1,7 @@
 import 'package:custom_timer/custom_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smartfit/models/workout_data.dart';
 
 class Custom_Timer extends StatelessWidget {
   final num duration;
@@ -10,6 +12,7 @@ class Custom_Timer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<WorkoutData?>(context);
     return CustomTimer(
         controller: controller,
         begin: Duration(minutes: duration.toInt()),
@@ -19,6 +22,7 @@ class Custom_Timer extends StatelessWidget {
               style: const TextStyle(fontSize: 24.0));
         },
         stateBuilder: (time, state) {
+          if (state == CustomTimerState.finished) {}
           // If null is returned, "builder" is displayed.
           return null;
         },
@@ -33,6 +37,7 @@ class Custom_Timer extends StatelessWidget {
         onChangeState: (state) {
           // This callback function runs when the timer state changes.
           print("Current state: $state");
+          print("time spnet from db ${data?.timeSpent}");
         });
   }
 }
