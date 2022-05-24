@@ -24,23 +24,27 @@ class _PageViewHolderState extends State<PageViewHolder> {
   @override
   Widget build(BuildContext context) {
     int len = widget.exercises.length;
-    return PageView(
+    return PageView.builder(
       controller: _controller,
-      children: [
-        // widget.exercises.map((e,i) => WorkoutProgress(exercises: e, index: i));
-        WorkoutProgress(
-          exercises: widget.exercises,
-          index: 0,
-        ),
-        WorkoutProgress(
-          exercises: widget.exercises,
-          index: 1,
-        ),
-        WorkoutProgress(
-          exercises: widget.exercises,
-          index: 2,
-        ),
-      ],
+      itemCount: len,
+      itemBuilder: (BuildContext context, int index) {
+        return WorkoutProgress(exercises: widget.exercises, index: index);
+      },
+      // children:
+      //   widget.exercises.map((e,i) => {return (WorkoutProgress(exercises: e, index: i))});
+      //   // WorkoutProgress(
+      //   //   exercises: widget.exercises,
+      //   //   index: 0,
+      //   // ),
+      //   // WorkoutProgress(
+      //   //   exercises: widget.exercises,
+      //   //   index: 1,
+      //   // ),
+      //   // WorkoutProgress(
+      //   //   exercises: widget.exercises,
+      //   //   index: 2,
+      //   // ),
+      // ],
     );
   }
 }

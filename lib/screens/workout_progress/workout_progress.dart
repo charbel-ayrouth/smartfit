@@ -11,18 +11,23 @@ import '../../services/database.dart';
 import 'components/custom_timer.dart';
 import 'package:lottie/lottie.dart';
 
-class WorkoutProgress extends StatelessWidget {
+class WorkoutProgress extends StatefulWidget {
   final List exercises;
   final int index;
   const WorkoutProgress({required this.exercises, required this.index});
 
+  @override
+  State<WorkoutProgress> createState() => _WorkoutProgressState();
+}
+
+class _WorkoutProgressState extends State<WorkoutProgress> {
   @override
   Widget build(BuildContext context) {
     String cdate2 = DateFormat("MMMM dd").format(DateTime.now());
     final CustomTimerController _controller = CustomTimerController();
     final user = Provider.of<User?>(context);
     DatabaseService dataRef = DatabaseService(uid: user!.uid);
-    ;
+
     return Scaffold(
       body: Background(
         child: SingleChildScrollView(
@@ -47,7 +52,7 @@ class WorkoutProgress extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                exercises[index]['name'],
+                widget.exercises[widget.index]['name'],
                 style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w400,
@@ -110,7 +115,10 @@ class WorkoutProgress extends StatelessWidget {
                   ],
                 ),
               ),
-              Custom_Timer(controller: _controller),
+              Custom_Timer(
+                controller: _controller,
+                duration: widget.exercises[widget.index]['duration'],
+              ),
               const SizedBox(height: 10.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -118,22 +126,19 @@ class WorkoutProgress extends StatelessWidget {
                   RoundedButton(
                     text: "Start",
                     color: kPrimaryColor,
-                    onPressed: () =>
-                        {dataRef.updateTime(), _controller.start()},
+                    onPressed: () => _controller.start(),
                   ),
                   RoundedButton(
-                    text: "Pause",
+                    text: _controller.state.toString() ==
+                            "CustomTimerState.paused"
+                        ? "Resume"
+                        : "Pause",
                     color: Colors.amber,
-                    onPressed: () => _controller.pause(),
+                    onPressed: () => {_controller.pause()},
                   ),
-                  RoundedButton(
-                    text: "Reset",
-                    color: kPrimaryColor,
-                    onPressed: () => _controller.reset(),
-                  )
                 ],
               ),
-              Lottie.network(exercises[index]['URL'],
+              Lottie.network(widget.exercises[widget.index]['URL'],
                   height: 300.0, width: 300.0),
             ],
           ),
