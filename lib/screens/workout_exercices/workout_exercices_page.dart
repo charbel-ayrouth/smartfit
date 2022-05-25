@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartfit/models/workouts.dart';
 import 'package:smartfit/screens/workout_progress/page_view.dart';
-import 'package:smartfit/screens/workout_progress/workout_progress.dart';
 import 'package:smartfit/shared/constants.dart';
 
 class WorkoutExercices extends StatelessWidget {

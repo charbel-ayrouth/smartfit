@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smartfit/models/workout_data.dart';
-import 'package:smartfit/models/workouts.dart';
 import 'package:smartfit/screens/workout_progress/workout_progress.dart';
+import 'package:smartfit/services/database.dart';
+import 'package:smartfit/shared/loading.dart';
 
 class PageViewHolder extends StatefulWidget {
   final List exercises;
@@ -26,14 +28,27 @@ class _PageViewHolderState extends State<PageViewHolder> {
   @override
   Widget build(BuildContext context) {
     int len = widget.exercises.length;
+    final user = Provider.of<User>(context);
     return PageView.builder(
       controller: _controller,
       itemCount: len,
       itemBuilder: (BuildContext context, int index) {
-        return WorkoutProgress(
-          exercises: widget.exercises,
-          index: index,
-        );
+        return StreamBuilder<WorkoutData>(
+            stream: DatabaseService(uid: user.uid).workoutData,
+            builder: ((context, snapshot) {
+              if (snapshot.hasError) {
+                return const Text("Error");
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return Loading();
+              } else {
+                var data = snapshot.data;
+                return WorkoutProgress(
+                  exercises: widget.exercises,
+                  index: index,
+                  workoutData: data,
+                );
+              }
+            }));
       },
     );
   }

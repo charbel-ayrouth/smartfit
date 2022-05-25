@@ -39,9 +39,9 @@ class _HomeState extends State<Home> {
         StreamProvider<WorkoutData?>(
           create: (_) => DatabaseService(uid: user!.uid).workoutData,
           initialData: null,
+          catchError: (_, __) {},
         )
       ],
-      // catchError: (_, __) {},
       child: Scaffold(
         // to keep the widget alive not destroyed when we switch to another page
         body: IndexedStack(

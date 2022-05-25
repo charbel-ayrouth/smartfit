@@ -15,7 +15,12 @@ import 'package:lottie/lottie.dart';
 class WorkoutProgress extends StatefulWidget {
   final List exercises;
   final int index;
-  const WorkoutProgress({required this.exercises, required this.index});
+  final WorkoutData? workoutData;
+  const WorkoutProgress({
+    required this.exercises,
+    required this.index,
+    required this.workoutData,
+  });
 
   @override
   State<WorkoutProgress> createState() => _WorkoutProgressState();
@@ -40,9 +45,6 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
   @override
   Widget build(BuildContext context) {
     String cdate2 = DateFormat("MMMM dd").format(DateTime.now());
-
-    final user = Provider.of<User?>(context);
-    DatabaseService dataRef = DatabaseService(uid: user!.uid);
 
     return Scaffold(
       body: Background(
@@ -133,7 +135,8 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
               ),
               Custom_Timer(
                 controller: _controller,
-                duration: widget.exercises[widget.index]['duration'],
+                exerciseDuration: widget.exercises[widget.index]['duration'],
+                timeSpent: widget.workoutData!.timeSpent,
               ),
               const SizedBox(height: 10.0),
               Row(
@@ -142,20 +145,14 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
                   RoundedButton(
                     text: buttonText,
                     color: kPrimaryColor,
-                    onPressed: () => {
-                      _controller.start(),
-                      print("start ${_controller.state}"),
-                      handleButton("Start")
-                    },
+                    onPressed: () =>
+                        {_controller.start(), handleButton("Start")},
                   ),
                   RoundedButton(
                       text: "Pause",
                       color: Colors.amber,
-                      onPressed: () => {
-                            _controller.pause(),
-                            print("Pause ${_controller.state}"),
-                            handleButton("Resume")
-                          }),
+                      onPressed: () =>
+                          {_controller.pause(), handleButton("Resume")}),
                 ],
               ),
               Lottie.network(widget.exercises[widget.index]['URL'],
