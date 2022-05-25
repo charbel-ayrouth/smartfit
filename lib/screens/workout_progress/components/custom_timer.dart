@@ -2,19 +2,21 @@ import 'package:custom_timer/custom_timer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smartfit/models/workout_data.dart';
-import 'package:smartfit/services/database.dart';
+import 'package:smartfit/screens/workout_progress/components/rounded_button.dart';
 
 class Custom_Timer extends StatelessWidget {
   final num exerciseDuration;
-  final num timeSpent;
+  final num? timeSpent;
   final CustomTimerController controller;
-  const Custom_Timer(
-      {Key? key,
-      required this.controller,
-      required this.exerciseDuration,
-      required this.timeSpent})
-      : super(key: key);
+  final void Function() onTap;
+
+  const Custom_Timer({
+    Key? key,
+    required this.controller,
+    required this.exerciseDuration,
+    this.timeSpent,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,16 @@ class Custom_Timer extends StatelessWidget {
         },
         stateBuilder: (time, state) {
           if (state == CustomTimerState.finished) {
-            DatabaseService(uid: user.uid)
-                .updateTime(timeSpent, exerciseDuration);
-            return const Text("Swipe for next Workout");
+            // DatabaseService(uid: user.uid)
+            //     .updateTime(timeSpent, exerciseDuration);
+            return RoundedButton(
+              text: "Next Exercises",
+              color: Colors.green,
+              onPressed: () => {
+                onTap(),
+                controller.reset(),
+              },
+            );
           }
           // If null is returned, "builder" is displayed.
           return null;
@@ -46,8 +55,8 @@ class Custom_Timer extends StatelessWidget {
         },
         onChangeState: (state) {
           // This callback function runs when the timer state changes.
-          print("Current state: $state");
-          print("time spent from db $timeSpent");
+          // print("Current state: $state");
+          // print("time spent from db $timeSpent");
         });
   }
 }

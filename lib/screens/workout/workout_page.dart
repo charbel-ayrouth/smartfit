@@ -44,6 +44,7 @@ class WorkoutPage extends StatelessWidget {
                   stream: WorkoutsServices().workouts,
                   builder: ((context, snapshot) {
                     if (snapshot.hasError) {
+                      print(snapshot.error);
                       return const Text("Error");
                     } else if (snapshot.connectionState ==
                         ConnectionState.waiting) {

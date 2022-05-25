@@ -24,15 +24,11 @@ class ProfileServices {
       var authResult =
           await firebaseUser.reauthenticateWithCredential(authCredentials);
       if (authResult.user != null) {
-        print("true");
-        print(authResult.user);
         return true;
       } else {
-        print(authResult.user);
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }

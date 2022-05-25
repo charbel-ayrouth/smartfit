@@ -16,10 +16,12 @@ class WorkoutProgress extends StatefulWidget {
   final List exercises;
   final int index;
   final WorkoutData? workoutData;
+  final void Function(double number) jumpTo;
   const WorkoutProgress({
     required this.exercises,
     required this.index,
     required this.workoutData,
+    required this.jumpTo,
   });
 
   @override
@@ -29,21 +31,35 @@ class WorkoutProgress extends StatefulWidget {
 class _WorkoutProgressState extends State<WorkoutProgress> {
   final CustomTimerController _controller = CustomTimerController();
   String buttonText = "Start";
+  int currentIndex = 0;
+  late int currentDuration;
 
-  // @override
-  // void dispose() {
-  //   _controller.dispose();
-  //   super.dispose();
-  // }
-
-  void handleButton(String text) {
-    setState(() {
-      buttonText = text;
-    });
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    int len = widget.exercises.length;
+    currentDuration = widget.exercises[currentIndex]['duration'];
+
+    void handleNext() {
+      if (currentIndex < len - 1) {
+        currentIndex++;
+        currentDuration = widget.exercises[currentIndex]['duration'];
+        widget.jumpTo((currentIndex).toDouble());
+      }
+      setState(() {});
+    }
+
+    void handleButton(String text) {
+      setState(() {
+        buttonText = text;
+      });
+    }
+
     String cdate2 = DateFormat("MMMM dd").format(DateTime.now());
 
     return Scaffold(
@@ -70,7 +86,7 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
               ),
               const SizedBox(height: 20),
               Text(
-                widget.exercises[widget.index]['name'],
+                widget.exercises[currentIndex]['name'],
                 style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w400,
@@ -135,8 +151,9 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
               ),
               Custom_Timer(
                 controller: _controller,
-                exerciseDuration: widget.exercises[widget.index]['duration'],
-                timeSpent: widget.workoutData!.timeSpent,
+                exerciseDuration: currentDuration,
+                // timeSpent: widget.workoutData!.timeSpent,
+                onTap: () => handleNext(),
               ),
               const SizedBox(height: 10.0),
               Row(
@@ -155,7 +172,7 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
                           {_controller.pause(), handleButton("Resume")}),
                 ],
               ),
-              Lottie.network(widget.exercises[widget.index]['URL'],
+              Lottie.network(widget.exercises[currentIndex]['URL'],
                   height: 300.0, width: 300.0),
             ],
           ),

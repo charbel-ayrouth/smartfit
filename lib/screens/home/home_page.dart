@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage>
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             WorkoutData? personalData = snapshot.data;
-            print(personalData!.timeSpent);
             return Background(
               child: SingleChildScrollView(
                 child: Padding(
@@ -90,7 +89,7 @@ class _HomePageState extends State<HomePage>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             FinishedCard(
-                              num: personalData.workoutDone.length,
+                              num: personalData!.workoutDone.length,
                             ),
                             Column(
                               children: [
@@ -113,6 +112,7 @@ class _HomePageState extends State<HomePage>
                             )),
                         const SizedBox(height: 20),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             HomeCard(
                               imageUrl:

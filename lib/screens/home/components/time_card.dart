@@ -42,7 +42,7 @@ class TimeCard extends StatelessWidget {
               ),
             ),
             const Text(
-              "Workouts",
+              "Minutes",
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 12.0,

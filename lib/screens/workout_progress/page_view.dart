@@ -25,6 +25,10 @@ class _PageViewHolderState extends State<PageViewHolder> {
     super.dispose();
   }
 
+  void nextPage(double number) {
+    _controller.jumpTo(number);
+  }
+
   @override
   Widget build(BuildContext context) {
     int len = widget.exercises.length;
@@ -32,6 +36,7 @@ class _PageViewHolderState extends State<PageViewHolder> {
     return PageView.builder(
       controller: _controller,
       itemCount: len,
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         return StreamBuilder<WorkoutData>(
             stream: DatabaseService(uid: user.uid).workoutData,
@@ -46,6 +51,7 @@ class _PageViewHolderState extends State<PageViewHolder> {
                   exercises: widget.exercises,
                   index: index,
                   workoutData: data,
+                  jumpTo: (number) => nextPage(number),
                 );
               }
             }));

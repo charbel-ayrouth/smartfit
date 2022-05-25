@@ -21,7 +21,6 @@ class AuthService {
       User? user = result.user;
       return user;
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
@@ -34,7 +33,6 @@ class AuthService {
         password: password,
       );
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
@@ -56,7 +54,6 @@ class AuthService {
       }
       return user;
     } on FirebaseAuthException catch (e) {
-      print(e.toString());
       return 'Problem Occured: ' + e.toString();
     } catch (error) {
       return 'Problem Occured: Something Went Wrong';
@@ -68,7 +65,6 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
