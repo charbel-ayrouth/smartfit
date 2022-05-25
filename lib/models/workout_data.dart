@@ -1,6 +1,6 @@
 class WorkoutData {
   final List workoutDone;
-  final List workoutInProgress;
+  final String workoutInProgress;
   final num timeSpent;
   WorkoutData({
     required this.workoutDone,

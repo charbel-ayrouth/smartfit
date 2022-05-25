@@ -46,15 +46,15 @@ class WorkoutExercices extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: ElevatedButton(
                     onPressed: () => {
+                      DatabaseService(uid: user.uid)
+                          .updateProgress(workout.name),
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
                               PageViewHolder(exercises: workout.exercices),
-                          // WorkoutProgress(exercises: workout.exercices),
                         ),
                       ),
-                      DatabaseService(uid: user.uid).updateProgress(workout)
                     },
                     child: const Text("Start Workout"),
                     style: ElevatedButton.styleFrom(

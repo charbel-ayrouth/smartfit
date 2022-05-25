@@ -201,6 +201,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
                               fontSize: 18, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 30),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           HomeCard(
                             imageUrl: 'assets/images/${workouts[0].imageName}',

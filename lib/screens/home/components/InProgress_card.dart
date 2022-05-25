@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:smartfit/shared/constants.dart';
 
 class InProgressCard extends StatelessWidget {
-  final int num;
+  final String name;
   const InProgressCard({
     Key? key,
-    required this.num,
+    required this.name,
   }) : super(key: key);
 
   @override
@@ -37,8 +37,8 @@ class InProgressCard extends StatelessWidget {
               ],
             ),
             Text(
-              num.toString(),
-              style: TextStyle(
+              name,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 23.0,
                 color: kPrimaryColor,

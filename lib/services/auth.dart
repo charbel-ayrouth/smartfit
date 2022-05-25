@@ -47,7 +47,7 @@ class AuthService {
       );
       User? user = result.user;
       //create a new doc for the user
-      await DatabaseService(uid: user!.uid).updateWorkoutData([], [], 0);
+      await DatabaseService(uid: user!.uid).updateWorkoutData([], '', 0);
       user.updateDisplayName(username);
       if (!user.emailVerified) {
         await user.sendEmailVerification();
