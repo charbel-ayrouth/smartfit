@@ -12,7 +12,13 @@ class WorkoutsServices {
         totalMinutes: doc.get('totalMinutes') ?? 0,
         exercices: doc.get('exercices') ??
             [
-              {'URL': '', 'avergeCalories': 0, 'duration': 0, 'name': ''}
+              {
+                'URL': '',
+                'avergeCalories': 0,
+                'duration': 0,
+                'name': '',
+                'finished': false
+              }
             ],
         imageName: doc.get("imageName") ?? '',
       );
@@ -22,4 +28,8 @@ class WorkoutsServices {
   Stream<List<Workouts>> get workouts {
     return workoutsCollection.snapshots().map(_workoutsListFromSnapshot);
   }
+
+  //   void update() async {
+  //   await workoutsCollection.doc().update({"workoutInProgress": ["finished": true]});
+  // }
 }

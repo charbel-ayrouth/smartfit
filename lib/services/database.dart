@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:smartfit/models/workout_data.dart';
+import 'package:smartfit/models/workouts.dart';
 
 class DatabaseService {
   final String uid;
@@ -43,6 +44,14 @@ class DatabaseService {
         .doc(uid)
         .update({"timeSpent": oldTime + newTime});
   }
+
+  void updateProgress(Workouts workout) async {
+    await workoutDataCollection.doc(uid).update({"workoutInProgress": workout});
+  }
+
+  // void updateTime(num oldTime, int currentDuration) async {
+  //   await workoutDataCollection.doc(uid).
+  // }
   //--------------------
 
 }

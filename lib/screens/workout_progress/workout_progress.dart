@@ -15,12 +15,12 @@ import 'package:lottie/lottie.dart';
 class WorkoutProgress extends StatefulWidget {
   final List exercises;
   final int index;
-  final WorkoutData? workoutData;
+  final num oldTime;
   final void Function(double number) jumpTo;
   const WorkoutProgress({
     required this.exercises,
     required this.index,
-    required this.workoutData,
+    required this.oldTime,
     required this.jumpTo,
   });
 
@@ -46,12 +46,13 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
     currentDuration = widget.exercises[currentIndex]['duration'];
 
     void handleNext() {
-      if (currentIndex < len - 1) {
-        currentIndex++;
-        currentDuration = widget.exercises[currentIndex]['duration'];
-        widget.jumpTo((currentIndex).toDouble());
-      }
-      setState(() {});
+      setState(() {
+        if (currentIndex < len - 1) {
+          currentIndex++;
+          currentDuration = widget.exercises[currentIndex]['duration'];
+          widget.jumpTo((currentIndex).toDouble());
+        }
+      });
     }
 
     void handleButton(String text) {
@@ -61,7 +62,7 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
     }
 
     String cdate2 = DateFormat("MMMM dd").format(DateTime.now());
-
+    final user = Provider.of<User>(context);
     return Scaffold(
       body: Background(
         child: SingleChildScrollView(
@@ -162,8 +163,12 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
                   RoundedButton(
                     text: buttonText,
                     color: kPrimaryColor,
-                    onPressed: () =>
-                        {_controller.start(), handleButton("Start")},
+                    onPressed: () => {
+                      _controller.start(),
+                      handleButton("Start"),
+                      DatabaseService(uid: user.uid)
+                          .updateTime(widget.oldTime, currentDuration)
+                    },
                   ),
                   RoundedButton(
                       text: "Pause",

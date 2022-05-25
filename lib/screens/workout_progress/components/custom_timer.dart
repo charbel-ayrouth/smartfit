@@ -23,7 +23,7 @@ class Custom_Timer extends StatelessWidget {
     final user = Provider.of<User>(context);
     return CustomTimer(
         controller: controller,
-        begin: Duration(minutes: exerciseDuration.toInt()),
+        begin: Duration(seconds: exerciseDuration.toInt()),
         end: const Duration(),
         builder: (time) {
           return Text("${time.minutes}:${time.seconds}",
@@ -31,14 +31,12 @@ class Custom_Timer extends StatelessWidget {
         },
         stateBuilder: (time, state) {
           if (state == CustomTimerState.finished) {
-            // DatabaseService(uid: user.uid)
-            //     .updateTime(timeSpent, exerciseDuration);
             return RoundedButton(
               text: "Next Exercises",
               color: Colors.green,
               onPressed: () => {
-                onTap(),
                 controller.reset(),
+                onTap(),
               },
             );
           }
