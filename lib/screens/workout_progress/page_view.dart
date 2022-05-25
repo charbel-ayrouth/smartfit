@@ -36,7 +36,7 @@ class _PageViewHolderState extends State<PageViewHolder> {
     return PageView.builder(
       controller: _controller,
       itemCount: len,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         return StreamBuilder<WorkoutData>(
             stream: DatabaseService(uid: user.uid).workoutData,

@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:smartfit/models/workout_data.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/screens/workout_progress/components/rounded_button.dart';
@@ -8,7 +6,6 @@ import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:custom_timer/custom_timer.dart';
-import '../../services/database.dart';
 import 'components/custom_timer.dart';
 import 'package:lottie/lottie.dart';
 
@@ -46,12 +43,15 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
     currentDuration = widget.exercises[currentIndex]['duration'];
 
     void handleNext() {
-      if (currentIndex < len - 1) {
-        currentIndex++;
-        currentDuration = widget.exercises[currentIndex]['duration'];
-        widget.jumpTo((currentIndex).toDouble());
-      }
-      setState(() {});
+      setState(() {
+        if (currentIndex < len - 1) {
+          ++currentIndex;
+          currentDuration = widget.exercises[currentIndex]['duration'];
+          widget.jumpTo((currentIndex).toDouble());
+        } else {
+          Navigator.pop(context);
+        }
+      });
     }
 
     void handleButton(String text) {
@@ -153,6 +153,7 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
                 controller: _controller,
                 exerciseDuration: currentDuration,
                 // timeSpent: widget.workoutData!.timeSpent,
+                last: currentIndex == len - 1,
                 onTap: () => handleNext(),
               ),
               const SizedBox(height: 10.0),

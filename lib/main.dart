@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "Poppins",
         ),
         // anything inside Wrapper widget can access the data provided by the StreamProvider
-        home: Wrapper(),
+        home: const Wrapper(),
       ),
     );
   }
