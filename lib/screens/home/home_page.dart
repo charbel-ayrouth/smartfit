@@ -8,14 +8,14 @@ import 'package:smartfit/screens/home/components/home_card.dart';
 import 'package:smartfit/screens/home/components/progress_card.dart';
 import 'package:smartfit/screens/home/components/time_card.dart';
 import 'package:smartfit/services/database.dart';
-import 'package:smartfit/services/workouts_services.dart';
 import 'package:smartfit/shared/loading.dart';
 import '../../shared/background.dart';
 import '../profile/components/logo.dart';
 import 'components/finished_card.dart';
 
-// ignore: must_be_immutable
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage>
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
     final workouts = Provider.of<List<Workouts>?>(context);
