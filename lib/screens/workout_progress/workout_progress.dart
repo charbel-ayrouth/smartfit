@@ -1,23 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:smartfit/models/workout_data.dart';
+import 'package:provider/provider.dart';
 import 'package:smartfit/screens/profile/components/logo.dart';
 import 'package:smartfit/screens/workout_progress/components/rounded_button.dart';
 import 'package:smartfit/shared/background.dart';
 import 'package:smartfit/shared/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:custom_timer/custom_timer.dart';
+import '../../services/database.dart';
 import 'components/custom_timer.dart';
 import 'package:lottie/lottie.dart';
 
 class WorkoutProgress extends StatefulWidget {
   final List exercises;
   final int index;
-  final WorkoutData? workoutData;
+  final num oldTime;
   final void Function(double number) jumpTo;
   const WorkoutProgress({
     required this.exercises,
     required this.index,
-    required this.workoutData,
+    required this.oldTime,
     required this.jumpTo,
   });
 
@@ -61,7 +63,7 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
     }
 
     String cdate2 = DateFormat("MMMM dd").format(DateTime.now());
-
+    final user = Provider.of<User>(context);
     return Scaffold(
       body: Background(
         child: SingleChildScrollView(
@@ -163,8 +165,12 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
                   RoundedButton(
                     text: buttonText,
                     color: kPrimaryColor,
-                    onPressed: () =>
-                        {_controller.start(), handleButton("Start")},
+                    onPressed: () => {
+                      _controller.start(),
+                      handleButton("Start"),
+                      DatabaseService(uid: user.uid)
+                          .updateTime(widget.oldTime, currentDuration)
+                    },
                   ),
                   RoundedButton(
                       text: "Pause",

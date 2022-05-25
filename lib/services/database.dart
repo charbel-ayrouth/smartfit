@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:smartfit/models/workout_data.dart';
+import 'package:smartfit/models/workouts.dart';
 
 class DatabaseService {
   final String uid;
@@ -11,7 +12,7 @@ class DatabaseService {
 
   // it will run when a new account is created or when the user update his profile
   Future updateWorkoutData(
-      List workoutDone, List workoutInProgress, double timeSpent) async {
+      List workoutDone, String workoutInProgress, double timeSpent) async {
     //link the database user using his uuid to the collection
     return await workoutDataCollection.doc(uid).set({
       "workoutDone": workoutDone,
@@ -24,7 +25,7 @@ class DatabaseService {
   WorkoutData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return WorkoutData(
       workoutDone: snapshot.get('workoutDone') ?? [],
-      workoutInProgress: snapshot.get('workoutInProgress') ?? [],
+      workoutInProgress: snapshot.get('workoutInProgress') ?? '',
       timeSpent: snapshot.get('timeSpent') ?? 0,
     );
   }
@@ -43,6 +44,18 @@ class DatabaseService {
         .doc(uid)
         .update({"timeSpent": oldTime + newTime});
   }
+
+  void updateProgress(String workout) async {
+    await workoutDataCollection
+        .doc(uid)
+        .update({"workoutInProgress": workout})
+        .then((_) => print('Added'))
+        .catchError((error) => print('Add failed: $error'));
+  }
+
+  // void updateTime(num oldTime, int currentDuration) async {
+  //   await workoutDataCollection.doc(uid).
+  // }
   //--------------------
 
 }

@@ -63,27 +63,27 @@ class _HomePageState extends State<HomePage>
                             ),
                           ),
                         const SizedBox(height: 10.0),
-                        Container(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: const TextField(
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Search',
-                                suffixIcon: IconButton(
-                                    onPressed: null, icon: Icon(Icons.search))),
-                          ),
-                          margin: const EdgeInsets.only(top: 20, bottom: 30),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.withOpacity(.5),
-                                    spreadRadius: 2,
-                                    blurRadius: 15,
-                                    offset: const Offset(0, 0))
-                              ]),
-                        ),
+                        // Container(
+                        //   padding: const EdgeInsets.only(left: 20),
+                        //   child: const TextField(
+                        //     decoration: InputDecoration(
+                        //         border: InputBorder.none,
+                        //         hintText: 'Search',
+                        //         suffixIcon: IconButton(
+                        //             onPressed: null, icon: Icon(Icons.search))),
+                        //   ),
+                        //   margin: const EdgeInsets.only(top: 20, bottom: 30),
+                        //   decoration: BoxDecoration(
+                        //       color: Colors.white,
+                        //       borderRadius: BorderRadius.circular(20),
+                        //       boxShadow: [
+                        //         BoxShadow(
+                        //             color: Colors.grey.withOpacity(.5),
+                        //             spreadRadius: 2,
+                        //             blurRadius: 15,
+                        //             offset: const Offset(0, 0))
+                        //       ]),
+                        // ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage>
                             Column(
                               children: [
                                 InProgressCard(
-                                    num: personalData.workoutInProgress.length),
+                                    name: personalData.workoutInProgress),
                                 TimeCard(
                                   time: personalData.timeSpent,
                                 ),

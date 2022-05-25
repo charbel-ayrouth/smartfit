@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smartfit/models/workouts.dart';
 import 'package:smartfit/screens/workout_progress/page_view.dart';
-import 'package:smartfit/screens/workout_progress/workout_progress.dart';
+import 'package:smartfit/services/database.dart';
 import 'package:smartfit/shared/constants.dart';
 
 class WorkoutExercices extends StatelessWidget {
@@ -10,6 +12,7 @@ class WorkoutExercices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kGrey,
@@ -42,14 +45,17 @@ class WorkoutExercices extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: ElevatedButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            PageViewHolder(exercises: workout.exercices),
-                        // WorkoutProgress(exercises: workout.exercices),
+                    onPressed: () => {
+                      DatabaseService(uid: user.uid)
+                          .updateProgress(workout.name),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PageViewHolder(exercises: workout.exercices),
+                        ),
                       ),
-                    ),
+                    },
                     child: const Text("Start Workout"),
                     style: ElevatedButton.styleFrom(
                       primary: kPrimaryColor,

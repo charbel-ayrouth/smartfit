@@ -50,7 +50,7 @@ class _PageViewHolderState extends State<PageViewHolder> {
                 return WorkoutProgress(
                   exercises: widget.exercises,
                   index: index,
-                  workoutData: data,
+                  oldTime: data!.timeSpent,
                   jumpTo: (number) => nextPage(number),
                 );
               }

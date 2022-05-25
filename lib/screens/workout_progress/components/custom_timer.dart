@@ -40,7 +40,7 @@ class Custom_Timer extends StatelessWidget {
 
     return CustomTimer(
         controller: controller,
-        begin: intToTimeLeft(exerciseDuration.toInt()),
+        begin: Duration(seconds: exerciseDuration.toInt()),
         end: const Duration(),
         builder: (time) {
           return Text("${time.minutes}:${time.seconds}",
