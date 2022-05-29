@@ -13,112 +13,14 @@ import '../../models/workout_data.dart';
 import '../../services/database.dart';
 
 class AnalysisPage extends StatefulWidget {
-  const AnalysisPage({
-    Key? key,
-  }) : super(key: key);
+  const AnalysisPage({Key? key}) : super(key: key);
 
   @override
   State<AnalysisPage> createState() => _AnalysisPageState();
 }
 
 class _AnalysisPageState extends State<AnalysisPage> {
-  Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
-      color: Colors.black,
-      fontWeight: FontWeight.bold,
-      fontSize: 12,
-    );
-    Widget text;
-    if (analysisType == "Daily") {
-      switch (value.toInt()) {
-        case 0:
-          text = const Text('SUN', style: style);
-          break;
-        case 1:
-          text = const Text('MON', style: style);
-          break;
-        case 2:
-          text = const Text('TUES', style: style);
-          break;
-        case 3:
-          text = const Text('WED', style: style);
-          break;
-        case 4:
-          text = const Text('THUR', style: style);
-          break;
-        case 5:
-          text = const Text('FRI', style: style);
-          break;
-        case 6:
-          text = const Text('SAT', style: style);
-          break;
-        default:
-          text = const Text('', style: style);
-          break;
-      }
-    } else if (analysisType == "Monthly") {
-      switch (value.toInt()) {
-        case 0:
-          text = const Text('Jan', style: style);
-          break;
-        case 1:
-          text = const Text('Feb', style: style);
-          break;
-        case 2:
-          text = const Text('Mar', style: style);
-          break;
-        case 3:
-          text = const Text('Apr', style: style);
-          break;
-        case 4:
-          text = const Text('May', style: style);
-          break;
-        case 5:
-          text = const Text('Jun', style: style);
-          break;
-        case 6:
-          text = const Text('Jul', style: style);
-          break;
-        case 7:
-          text = const Text('Aug', style: style);
-          break;
-        case 8:
-          text = const Text('Sep', style: style);
-          break;
-        case 9:
-          text = const Text('Oct', style: style);
-          break;
-        case 10:
-          text = const Text('Nov', style: style);
-          break;
-        case 11:
-          text = const Text('Dec', style: style);
-          break;
-        default:
-          text = const Text('', style: style);
-          break;
-      }
-    } else {
-      switch (value.toInt()) {
-        case 0:
-          text = const Text('Week 1', style: style);
-          break;
-        case 1:
-          text = const Text('Week 2', style: style);
-          break;
-        case 2:
-          text = const Text('Week 3', style: style);
-          break;
-        case 3:
-          text = const Text('Week 4', style: style);
-          break;
-        default:
-          text = const Text('', style: style);
-          break;
-      }
-    }
-    return Padding(child: text, padding: const EdgeInsets.only(top: 8.0));
-  }
+  late int exerciseLen;
 
   String analysisType = "Daily";
 
@@ -168,9 +70,114 @@ class _AnalysisPageState extends State<AnalysisPage> {
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
     final workouts = Provider.of<List<Workouts>>(context);
+
     return StreamBuilder<WorkoutData>(
         stream: DatabaseService(uid: user!.uid).workoutData,
         builder: (context, snapshot) {
+          exerciseLen = snapshot.data?.exercisesDone.length as int;
+          Widget bottomTitleWidgets(double value, TitleMeta meta) {
+            const style = TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            );
+            Widget text;
+            if (analysisType == "Daily") {
+              var res = snapshot.data?.exercisesDone.where((element) =>
+                  element.timeStamp.month == DateTime.now().month &&
+                  element.timeStamp.day < DateTime.now().day - 7);
+              print('batatata taa $res');
+              switch (value.toInt()) {
+                case 0:
+                  text = const Text('SUN', style: style);
+                  break;
+                case 1:
+                  text = const Text('MON', style: style);
+                  break;
+                case 2:
+                  text = const Text('TUES', style: style);
+                  break;
+                case 3:
+                  text = const Text('WED', style: style);
+                  break;
+                case 4:
+                  text = const Text('THUR', style: style);
+                  break;
+                case 5:
+                  text = const Text('FRI', style: style);
+                  break;
+                case 6:
+                  text = const Text('SAT', style: style);
+                  break;
+                default:
+                  text = const Text('', style: style);
+                  break;
+              }
+            } else if (analysisType == "Monthly") {
+              switch (value.toInt()) {
+                case 0:
+                  text = const Text('Jan', style: style);
+                  break;
+                case 1:
+                  text = const Text('Feb', style: style);
+                  break;
+                case 2:
+                  text = const Text('Mar', style: style);
+                  break;
+                case 3:
+                  text = const Text('Apr', style: style);
+                  break;
+                case 4:
+                  text = const Text('May', style: style);
+                  break;
+                case 5:
+                  text = const Text('Jun', style: style);
+                  break;
+                case 6:
+                  text = const Text('Jul', style: style);
+                  break;
+                case 7:
+                  text = const Text('Aug', style: style);
+                  break;
+                case 8:
+                  text = const Text('Sep', style: style);
+                  break;
+                case 9:
+                  text = const Text('Oct', style: style);
+                  break;
+                case 10:
+                  text = const Text('Nov', style: style);
+                  break;
+                case 11:
+                  text = const Text('Dec', style: style);
+                  break;
+                default:
+                  text = const Text('', style: style);
+                  break;
+              }
+            } else {
+              switch (value.toInt()) {
+                case 0:
+                  text = const Text('Week 1', style: style);
+                  break;
+                case 1:
+                  text = const Text('Week 2', style: style);
+                  break;
+                case 2:
+                  text = const Text('Week 3', style: style);
+                  break;
+                case 3:
+                  text = const Text('Week 4', style: style);
+                  break;
+                default:
+                  text = const Text('', style: style);
+                  break;
+              }
+            }
+            return Padding(
+                child: text, padding: const EdgeInsets.only(top: 8.0));
+          }
+
           const gradientColors = [
             Color(0x00ff7000),
             Color(0x00ffffff),

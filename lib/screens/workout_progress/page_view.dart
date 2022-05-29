@@ -48,11 +48,11 @@ class _PageViewHolderState extends State<PageViewHolder> {
               } else {
                 var data = snapshot.data;
                 return WorkoutProgress(
-                  exercises: widget.exercises,
-                  index: index,
-                  oldTime: data!.timeSpent,
-                  jumpTo: (number) => nextPage(number),
-                );
+                    exercises: widget.exercises,
+                    index: index,
+                    oldTime: data!.timeSpent,
+                    jumpTo: (number) => nextPage(number),
+                    uid: user.uid);
               }
             }));
       },

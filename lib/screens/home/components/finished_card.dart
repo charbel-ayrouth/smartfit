@@ -40,12 +40,12 @@ class FinishedCard extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 21.5,
               ),
               child: Text(
                 num.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 50.0,
                   color: kPrimaryColor,
@@ -61,7 +61,7 @@ class FinishedCard extends StatelessWidget {
               ),
             ),
             const Text(
-              "Workouts",
+              "Exercises",
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 12.0,

@@ -15,13 +15,14 @@ class WorkoutProgress extends StatefulWidget {
   final List exercises;
   final int index;
   final num oldTime;
+  final String uid;
   final void Function(double number) jumpTo;
-  const WorkoutProgress({
-    required this.exercises,
-    required this.index,
-    required this.oldTime,
-    required this.jumpTo,
-  });
+  const WorkoutProgress(
+      {required this.exercises,
+      required this.index,
+      required this.oldTime,
+      required this.jumpTo,
+      required this.uid});
 
   @override
   State<WorkoutProgress> createState() => _WorkoutProgressState();
@@ -47,6 +48,8 @@ class _WorkoutProgressState extends State<WorkoutProgress> {
     void handleNext() {
       setState(() {
         if (currentIndex < len - 1) {
+          DatabaseService(uid: widget.uid)
+              .updateExercisesDone(widget.exercises[currentIndex]);
           ++currentIndex;
           currentDuration = widget.exercises[currentIndex]['duration'];
           widget.jumpTo((currentIndex).toDouble());

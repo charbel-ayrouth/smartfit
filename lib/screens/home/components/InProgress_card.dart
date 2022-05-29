@@ -22,7 +22,7 @@ class InProgressCard extends StatelessWidget {
             Row(
               children: const [
                 Text(
-                  "In Progress",
+                  "Last Workout",
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.w700,
@@ -30,7 +30,7 @@ class InProgressCard extends StatelessWidget {
                 ),
                 SizedBox(width: 2.0),
                 Icon(
-                  Icons.percent_outlined,
+                  Icons.fitness_center_outlined,
                   size: 22.0,
                   color: kPrimaryColor,
                 ),

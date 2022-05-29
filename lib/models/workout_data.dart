@@ -1,10 +1,10 @@
 class WorkoutData {
-  final List workoutDone;
-  final String workoutInProgress;
+  final List exercisesDone;
+  final String lastWorkout;
   final num timeSpent;
   WorkoutData({
-    required this.workoutDone,
-    required this.workoutInProgress,
+    required this.exercisesDone,
+    required this.lastWorkout,
     required this.timeSpent,
   });
 }

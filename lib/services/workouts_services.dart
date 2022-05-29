@@ -28,8 +28,4 @@ class WorkoutsServices {
   Stream<List<Workouts>> get workouts {
     return workoutsCollection.snapshots().map(_workoutsListFromSnapshot);
   }
-
-  //   void update() async {
-  //   await workoutsCollection.doc().update({"workoutInProgress": ["finished": true]});
-  // }
 }

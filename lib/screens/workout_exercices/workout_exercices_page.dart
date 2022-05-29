@@ -46,8 +46,7 @@ class WorkoutExercices extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: ElevatedButton(
                     onPressed: () => {
-                      DatabaseService(uid: user.uid)
-                          .updateProgress(workout.name),
+                      DatabaseService(uid: user.uid).updateLast(workout.name),
                       Navigator.push(
                         context,
                         MaterialPageRoute(
