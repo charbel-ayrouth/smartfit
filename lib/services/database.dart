@@ -41,7 +41,7 @@ class DatabaseService {
     var res = await workoutDataCollection.doc(uid).get();
     var exWithTime = {...exercise, 'timeStamp': DateTime.now()};
     List exDone = res.get('exercisesDone');
-    
+
     exDone.add(exWithTime);
     await workoutDataCollection
         .doc(uid)
@@ -49,9 +49,9 @@ class DatabaseService {
             (error) => print('update Failed: $error'));
   }
 
-  Future GetWorkouts(String type) async {
-    // int len = await workoutDataCollection.doc(uid).get();
-    // var res = await workoutDataCollection.doc(uid).get().;
+  // Future GetWorkouts(String type) async {
+  // int len = await workoutDataCollection.doc(uid).get();
+  // var res = await workoutDataCollection.doc(uid).get().;
 
   // ------------------------------
   void updateTime(num oldTime, num newTime) async {
