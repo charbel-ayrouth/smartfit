@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:smartfit/models/workout_data.dart';
-import 'package:smartfit/models/workouts.dart';
 
 class DatabaseService {
   final String uid;
@@ -12,11 +11,11 @@ class DatabaseService {
 
   // it will run when a new account is created or when the user update his profile
   Future updateWorkoutData(
-      List workoutDone, String workoutInProgress, double timeSpent) async {
+      List exercisesDone, String lastWorkout, double timeSpent) async {
     //link the database user using his uuid to the collection
     return await workoutDataCollection.doc(uid).set({
-      "workoutDone": workoutDone,
-      "workoutInProgress": workoutInProgress,
+      "exercisesDone": exercisesDone,
+      "lastWorkout": lastWorkout,
       "timeSpent": timeSpent,
     });
   }
@@ -24,8 +23,8 @@ class DatabaseService {
   //workout data from snapshot
   WorkoutData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return WorkoutData(
-      workoutDone: snapshot.get('workoutDone') ?? [],
-      workoutInProgress: snapshot.get('workoutInProgress') ?? '',
+      exercisesDone: snapshot.get('exercisesDone') ?? [],
+      lastWorkout: snapshot.get('lastWorkout') ?? '',
       timeSpent: snapshot.get('timeSpent') ?? 0,
     );
   }
@@ -38,6 +37,22 @@ class DatabaseService {
         .map(_userDataFromSnapshot);
   }
 
+  Future updateExercisesDone(Map exercise) async {
+    var res = await workoutDataCollection.doc(uid).get();
+    var exWithTime = {...exercise, 'timeStamp': DateTime.now()};
+    List exDone = res.get('exercisesDone');
+    
+    exDone.add(exWithTime);
+    await workoutDataCollection
+        .doc(uid)
+        .update({'exercisesDone': exDone}).catchError(
+            (error) => print('update Failed: $error'));
+  }
+
+  Future GetWorkouts(String type) async {
+    // int len = await workoutDataCollection.doc(uid).get();
+    // var res = await workoutDataCollection.doc(uid).get().;
+
   // ------------------------------
   void updateTime(num oldTime, num newTime) async {
     await workoutDataCollection
@@ -45,17 +60,11 @@ class DatabaseService {
         .update({"timeSpent": oldTime + newTime});
   }
 
-  void updateProgress(String workout) async {
+  void updateLast(String workout) async {
     await workoutDataCollection
         .doc(uid)
-        .update({"workoutInProgress": workout})
+        .update({"lastWorkout": workout})
         .then((_) => print('Added'))
         .catchError((error) => print('Add failed: $error'));
   }
-
-  // void updateTime(num oldTime, int currentDuration) async {
-  //   await workoutDataCollection.doc(uid).
-  // }
-  //--------------------
-
 }
