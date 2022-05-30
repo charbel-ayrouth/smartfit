@@ -83,10 +83,6 @@ class _AnalysisPageState extends State<AnalysisPage> {
             );
             Widget text;
             if (analysisType == "Daily") {
-              var res = snapshot.data?.exercisesDone.where((element) =>
-                  element.timeStamp.month == DateTime.now().month &&
-                  element.timeStamp.day < DateTime.now().day - 7);
-              print('batatata taa $res');
               switch (value.toInt()) {
                 case 0:
                   text = const Text('SUN', style: style);

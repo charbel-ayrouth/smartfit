@@ -7,6 +7,14 @@ class TimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Duration intToTimeLeft(int value) {
+      int h, m, s;
+      h = value ~/ 3600;
+      m = ((value - h * 3600)) ~/ 60;
+      s = value - (h * 3600) - (m * 60);
+      return Duration(hours: h, minutes: h, seconds: s);
+    }
+
     return Card(
       elevation: 12,
       shape: RoundedRectangleBorder(
@@ -34,21 +42,21 @@ class TimeCard extends StatelessWidget {
               ],
             ),
             Text(
-              time.toString(),
+              intToTimeLeft(time.toInt()).toString().split('.')[0],
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 23.0,
                 color: kPrimaryColor,
               ),
             ),
-            const Text(
-              "Minutes",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 12.0,
-                color: Colors.grey,
-              ),
-            )
+            // const Text(
+            //   "Minutes",
+            //   style: TextStyle(
+            //     fontWeight: FontWeight.w500,
+            //     fontSize: 12.0,
+            //     color: Colors.grey,
+            //   ),
+            // )
           ],
         ),
       ),
