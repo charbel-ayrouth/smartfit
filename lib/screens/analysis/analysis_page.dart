@@ -28,34 +28,34 @@ class _AnalysisPageState extends State<AnalysisPage> {
     if (analysisType == "Daily") {
       return [
         const FlSpot(0, 4),
-        const FlSpot(1, 4),
-        const FlSpot(2, 4),
-        const FlSpot(3, 4),
-        const FlSpot(4, 4),
+        const FlSpot(1, 5),
+        const FlSpot(2, 1),
+        const FlSpot(3, 2),
+        const FlSpot(4, 3),
         const FlSpot(5, 4),
         const FlSpot(6, 4),
       ];
     } else if (analysisType == "Monthly") {
       return [
-        const FlSpot(0, 4),
+        const FlSpot(0, 1),
         const FlSpot(1, 4),
-        const FlSpot(2, 4),
-        const FlSpot(3, 4),
-        const FlSpot(4, 4),
-        const FlSpot(5, 4),
-        const FlSpot(6, 4),
-        const FlSpot(7, 4),
-        const FlSpot(8, 4),
-        const FlSpot(9, 4),
-        const FlSpot(10, 4),
-        const FlSpot(11, 4),
+        const FlSpot(2, 5),
+        const FlSpot(3, 2),
+        const FlSpot(4, 5),
+        const FlSpot(5, 8),
+        const FlSpot(6, 3),
+        const FlSpot(7, 5),
+        const FlSpot(8, 2),
+        const FlSpot(9, 1),
+        const FlSpot(10, 7),
+        const FlSpot(11, 8),
       ];
     } else {
       return [
         const FlSpot(0, 4),
-        const FlSpot(1, 4),
-        const FlSpot(2, 4),
-        const FlSpot(3, 4),
+        const FlSpot(1, 1),
+        const FlSpot(2, 3),
+        const FlSpot(3, 2),
       ];
     }
   }
